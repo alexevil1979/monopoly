@@ -82,7 +82,34 @@ const dice2 = document.getElementById('dice2');
 const chatContainer = document.getElementById('chatContainer');
 const chatToggle = document.getElementById('chatToggle');
 
-// Theme Toggle
+// Hall theme (оформление зала): America 50s по умолчанию, сохранение в localStorage
+const HALL_THEME_KEY = 'monopolyHallTheme';
+const HALL_THEMES = ['america50', 'classic', 'artdeco', 'scandinavian', 'wood', 'neon'];
+
+function getHallTheme() {
+  const saved = localStorage.getItem(HALL_THEME_KEY);
+  return HALL_THEMES.includes(saved) ? saved : 'america50';
+}
+
+function setHallTheme(theme) {
+  if (!HALL_THEMES.includes(theme)) return;
+  document.body.setAttribute('data-hall-theme', theme);
+  localStorage.setItem(HALL_THEME_KEY, theme);
+  document.querySelectorAll('.theme-picker-btn').forEach((btn) => {
+    btn.classList.toggle('active', btn.getAttribute('data-hall-theme') === theme);
+  });
+}
+
+(function initHallTheme() {
+  const initial = getHallTheme();
+  document.body.setAttribute('data-hall-theme', initial);
+  document.querySelectorAll('.theme-picker-btn').forEach((btn) => {
+    btn.classList.toggle('active', btn.getAttribute('data-hall-theme') === initial);
+    btn.addEventListener('click', () => setHallTheme(btn.getAttribute('data-hall-theme')));
+  });
+})();
+
+// Theme Toggle (светлая/тёмная)
 const themeToggle = document.getElementById('themeToggle');
 let isDarkTheme = true;
 
@@ -90,7 +117,6 @@ themeToggle?.addEventListener('click', () => {
   isDarkTheme = !isDarkTheme;
   document.documentElement.setAttribute('data-theme', isDarkTheme ? 'dark' : 'light');
   
-  // Update icon
   const svg = themeToggle.querySelector('svg');
   if (svg) {
     if (isDarkTheme) {

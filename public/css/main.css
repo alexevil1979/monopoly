@@ -1,64 +1,13 @@
 /* ============================================
    Monopoly Online — Premium UI Styles
-   Dark theme with green/orange/yellow accents
+   Цвета и шрифты задаются в themes.css (по умолчанию America 50s)
    ============================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
-
 :root {
-  /* Dark theme colors */
-  --bg-primary: #0a0a0f;
-  --bg-secondary: #151520;
-  --bg-tertiary: #1e1e2e;
-  --bg-card: rgba(30, 30, 46, 0.8);
-  --bg-glass: rgba(30, 30, 46, 0.6);
-  
-  /* Monopoly colors */
-  --green-dark: #0d4d2d;
-  --green-light: #2d8659;
-  --orange: #ff8c42;
-  --yellow: #ffd93d;
-  --gold: #ffb84d;
-  
-  /* Accents */
-  --accent-primary: #2d8659;
-  --accent-secondary: #ff8c42;
-  --accent-gold: #ffd93d;
-  
-  /* Text */
-  --text-primary: #ffffff;
-  --text-secondary: #b0b0c0;
-  --text-muted: #707080;
-  
-  /* Borders & shadows */
-  --border-color: rgba(45, 134, 89, 0.3);
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 20px rgba(45, 134, 89, 0.4);
-  
-  /* Street colors */
-  --street-brown: #8b4513;
-  --street-lightblue: #87ceeb;
-  --street-pink: #ff69b4;
-  --street-orange: #ffa500;
-  
-  /* Transitions */
+  /* Transitions (общие для всех тем) */
   --transition-fast: 0.15s ease;
   --transition-normal: 0.3s ease;
   --transition-slow: 0.5s ease;
-}
-
-[data-theme="light"] {
-  --bg-primary: #f5f5f0;
-  --bg-secondary: #ffffff;
-  --bg-tertiary: #f0f0e8;
-  --bg-card: rgba(255, 255, 255, 0.9);
-  --bg-glass: rgba(255, 255, 255, 0.7);
-  --text-primary: #1a1a1a;
-  --text-secondary: #4a4a4a;
-  --text-muted: #8a8a8a;
-  --border-color: rgba(45, 134, 89, 0.2);
 }
 
 * {
@@ -68,8 +17,8 @@
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, var(--green-dark) 0%, var(--bg-primary) 50%, #000000 100%);
+  font-family: var(--font-body), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--table-texture, linear-gradient(135deg, var(--green-dark) 0%, var(--bg-primary) 50%, #000 100%));
   background-attachment: fixed;
   color: var(--text-primary);
   min-height: 100vh;
@@ -85,14 +34,14 @@ body::before {
   right: 0;
   bottom: 0;
   background: 
-    radial-gradient(circle at 20% 50%, rgba(45, 134, 89, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 50%, rgba(255, 140, 66, 0.1) 0%, transparent 50%);
+    radial-gradient(circle at 20% 50%, rgba(45, 134, 89, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 50%, rgba(255, 140, 66, 0.08) 0%, transparent 50%);
   pointer-events: none;
   z-index: 0;
 }
 
 h1, h2, h3 {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-heading), serif;
   font-weight: 600;
 }
 
@@ -258,6 +207,39 @@ h1, h2, h3 {
   cursor: not-allowed;
 }
 
+/* Выбор темы оформления зала */
+.theme-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.theme-picker-btn {
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 2px solid var(--border-color);
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  font-family: var(--font-body), inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.theme-picker-btn:hover {
+  border-color: var(--accent-primary);
+  transform: translateY(-1px);
+}
+
+.theme-picker-btn.active {
+  border-color: var(--accent-gold);
+  background: var(--accent-primary);
+  color: #fff;
+  box-shadow: var(--shadow-sm);
+}
+
 #roomCode {
   font-family: 'Courier New', monospace;
   font-size: 1.5rem;
@@ -357,7 +339,7 @@ h1, h2, h3 {
   background: radial-gradient(circle, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
   border: 4px solid var(--border-color);
   box-shadow: 
-    inset 0 0 60px rgba(0, 0, 0, 0.5),
+    inset 0 0 60px rgba(0, 0, 0, 0.4),
     var(--shadow-lg);
 }
 
@@ -427,7 +409,7 @@ h1, h2, h3 {
   height: 100%;
   background: var(--bg-card);
   border-radius: 8px;
-  border: 2px solid var(--border-color);
+  border: var(--card-vintage-border, 2px solid var(--border-color));
   padding: 6px;
   display: flex;
   flex-direction: column;
@@ -897,7 +879,7 @@ h1, h2, h3 {
   max-height: 90vh;
   overflow-y: auto;
   box-shadow: var(--shadow-lg);
-  border: 2px solid var(--border-color);
+  border: var(--card-vintage-border, 2px solid var(--border-color));
   animation: modalSlideIn 0.3s ease;
 }
 

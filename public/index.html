@@ -5,9 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Monopoly Online — Premium Edition</title>
   <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/themes.css" />
   <link rel="stylesheet" href="/css/animations.css" />
 </head>
-<body>
+<body data-hall-theme="america50">
   <!-- Theme Toggle -->
   <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -52,6 +53,18 @@
         </div>
 
         <button id="btnJoin" class="action-btn secondary">Join Room</button>
+
+        <div class="lobby-input-group" style="margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border-color);">
+          <label>Оформление зала</label>
+          <div class="theme-picker" id="themePicker" role="group" aria-label="Выбор темы оформления">
+            <button type="button" class="theme-picker-btn active" data-hall-theme="america50" title="America 50s">🇺🇸 50s</button>
+            <button type="button" class="theme-picker-btn" data-hall-theme="classic" title="Classic Monopoly">🎲 Classic</button>
+            <button type="button" class="theme-picker-btn" data-hall-theme="artdeco" title="Art Deco">✨ Art Deco</button>
+            <button type="button" class="theme-picker-btn" data-hall-theme="scandinavian" title="Scandinavian">🌲 Nordic</button>
+            <button type="button" class="theme-picker-btn" data-hall-theme="wood" title="Wood">🪵 Wood</button>
+            <button type="button" class="theme-picker-btn" data-hall-theme="neon" title="Neon">🌃 Neon</button>
+          </div>
+        </div>
         
         <p id="lobbyError" class="error" style="display: none;"></p>
       </div>

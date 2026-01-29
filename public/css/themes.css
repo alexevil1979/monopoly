@@ -1,0 +1,202 @@
+/* ============================================
+   Hall themes — оформление зала (лобби, комната, доска)
+   По умолчанию: America 50s
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ---------- America 50s (по умолчанию) ---------- */
+:root,
+[data-hall-theme="america50"] {
+  --font-heading: 'Bebas Neue', 'Oswald', sans-serif;
+  --font-body: 'Oswald', 'Inter', sans-serif;
+  --bg-primary: #1a1510;
+  --bg-secondary: #2d2520;
+  --bg-tertiary: #3d322a;
+  --bg-card: rgba(245, 230, 211, 0.95);
+  --bg-glass: rgba(45, 125, 125, 0.15);
+  --green-dark: #1e5c5c;
+  --green-light: #2d7d7d;
+  --orange: #e85d4c;
+  --yellow: #f4d35e;
+  --gold: #e8b923;
+  --accent-primary: #2d7d7d;
+  --accent-secondary: #c41e3a;
+  --accent-gold: #f4d35e;
+  --text-primary: #f5e6d3;
+  --text-secondary: #c4b5a0;
+  --text-muted: #8a7a65;
+  --border-color: rgba(196, 30, 58, 0.35);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 24px rgba(45, 125, 125, 0.35);
+  --street-brown: #8b6914;
+  --street-lightblue: #5c9ead;
+  --street-pink: #c41e3a;
+  --street-orange: #e85d4c;
+  --table-texture: linear-gradient(135deg, #2d2520 0%, #1a1510 50%, #3d322a 100%);
+  --card-vintage-border: 3px double rgba(196, 30, 58, 0.5);
+}
+
+/* ---------- Classic Monopoly (тёмная зелёно-оранжевая) ---------- */
+[data-hall-theme="classic"] {
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'Inter', sans-serif;
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #151520;
+  --bg-tertiary: #1e1e2e;
+  --bg-card: rgba(30, 30, 46, 0.8);
+  --bg-glass: rgba(30, 30, 46, 0.6);
+  --green-dark: #0d4d2d;
+  --green-light: #2d8659;
+  --orange: #ff8c42;
+  --yellow: #ffd93d;
+  --gold: #ffb84d;
+  --accent-primary: #2d8659;
+  --accent-secondary: #ff8c42;
+  --accent-gold: #ffd93d;
+  --text-primary: #ffffff;
+  --text-secondary: #b0b0c0;
+  --text-muted: #707080;
+  --border-color: rgba(45, 134, 89, 0.3);
+  --shadow-glow: 0 0 20px rgba(45, 134, 89, 0.4);
+  --street-brown: #8b4513;
+  --street-lightblue: #87ceeb;
+  --street-pink: #ff69b4;
+  --street-orange: #ffa500;
+  --table-texture: linear-gradient(135deg, #0d4d2d 0%, #0a0a0f 50%, #000 100%);
+  --card-vintage-border: 2px solid var(--border-color);
+}
+
+/* ---------- Art Deco ---------- */
+[data-hall-theme="artdeco"] {
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'Inter', sans-serif;
+  --bg-primary: #0d0d0d;
+  --bg-secondary: #1a1a1a;
+  --bg-tertiary: #2a2a2a;
+  --bg-card: rgba(212, 175, 55, 0.12);
+  --bg-glass: rgba(212, 175, 55, 0.08);
+  --green-dark: #1a2a1a;
+  --green-light: #2d4a2d;
+  --orange: #c9a227;
+  --yellow: #f0d78c;
+  --gold: #d4af37;
+  --accent-primary: #d4af37;
+  --accent-secondary: #c9a227;
+  --accent-gold: #f0d78c;
+  --text-primary: #f5f5dc;
+  --text-secondary: #c4c4a0;
+  --text-muted: #8a8a70;
+  --border-color: rgba(212, 175, 55, 0.4);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 24px rgba(212, 175, 55, 0.25);
+  --street-brown: #8b6914;
+  --street-lightblue: #5c7c9e;
+  --street-pink: #a07878;
+  --street-orange: #c9a227;
+  --table-texture: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 50%, #2a2a2a 100%);
+  --card-vintage-border: 2px solid var(--accent-primary);
+}
+
+/* ---------- Scandinavian ---------- */
+[data-hall-theme="scandinavian"] {
+  --font-heading: 'Inter', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --bg-primary: #f8f6f1;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #ebe8e0;
+  --bg-card: rgba(255, 255, 255, 0.95);
+  --bg-glass: rgba(255, 255, 255, 0.8);
+  --green-dark: #4a6b5a;
+  --green-light: #5c7c6b;
+  --orange: #8b7355;
+  --yellow: #c4a35a;
+  --gold: #b4956a;
+  --accent-primary: #5c7c6b;
+  --accent-secondary: #8b7355;
+  --accent-gold: #c4a35a;
+  --text-primary: #2c2c2c;
+  --text-secondary: #5c5c5c;
+  --text-muted: #8a8a8a;
+  --border-color: rgba(92, 124, 107, 0.25);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --shadow-glow: 0 0 20px rgba(92, 124, 107, 0.2);
+  --street-brown: #6b5344;
+  --street-lightblue: #7cad9e;
+  --street-pink: #b08a8a;
+  --street-orange: #c4a35a;
+  --table-texture: linear-gradient(135deg, #e8e4dc 0%, #f8f6f1 50%, #fff 100%);
+  --card-vintage-border: 1px solid var(--border-color);
+}
+
+/* ---------- Wood (классика светлая) ---------- */
+[data-hall-theme="wood"] {
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'Inter', sans-serif;
+  --bg-primary: #3e2723;
+  --bg-secondary: #5d4037;
+  --bg-tertiary: #6d4c41;
+  --bg-card: rgba(245, 235, 220, 0.95);
+  --bg-glass: rgba(93, 64, 55, 0.3);
+  --green-dark: #4e342e;
+  --green-light: #6d4c41;
+  --orange: #a1887f;
+  --yellow: #d4a574;
+  --gold: #c49a6a;
+  --accent-primary: #8d6e63;
+  --accent-secondary: #a1887f;
+  --accent-gold: #d4a574;
+  --text-primary: #f5ebdc;
+  --text-secondary: #c4b5a5;
+  --text-muted: #8a7a6a;
+  --border-color: rgba(212, 165, 116, 0.35);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.45);
+  --shadow-glow: 0 0 20px rgba(141, 110, 99, 0.3);
+  --street-brown: #6d4c41;
+  --street-lightblue: #8d7a6e;
+  --street-pink: #a07878;
+  --street-orange: #d4a574;
+  --table-texture: linear-gradient(135deg, #5d4037 0%, #3e2723 50%, #6d4c41 100%);
+  --card-vintage-border: 2px solid rgba(212, 165, 116, 0.5);
+}
+
+/* ---------- Neon (ночной город) ---------- */
+[data-hall-theme="neon"] {
+  --font-heading: 'Oswald', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --bg-primary: #0a0a12;
+  --bg-secondary: #12121a;
+  --bg-tertiary: #1a1a28;
+  --bg-card: rgba(26, 26, 40, 0.9);
+  --bg-glass: rgba(0, 255, 255, 0.06);
+  --green-dark: #0a1a1a;
+  --green-light: #00ffff;
+  --orange: #ff00ff;
+  --yellow: #ffff00;
+  --gold: #ffff80;
+  --accent-primary: #00ffff;
+  --accent-secondary: #ff00ff;
+  --accent-gold: #ffff00;
+  --text-primary: #e0e0ff;
+  --text-secondary: #a0a0c0;
+  --text-muted: #606080;
+  --border-color: rgba(0, 255, 255, 0.3);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 24px rgba(0, 255, 255, 0.4);
+  --street-brown: #406060;
+  --street-lightblue: #00cccc;
+  --street-pink: #ff00ff;
+  --street-orange: #ff9900;
+  --table-texture: linear-gradient(135deg, #0a0a12 0%, #12121a 50%, #1a1a28 100%);
+  --card-vintage-border: 1px solid rgba(0, 255, 255, 0.4);
+}
