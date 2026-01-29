@@ -10,6 +10,9 @@
   <link rel="stylesheet" href="/css/animations.css" />
 </head>
 <body data-hall-theme="america50">
+  <script>
+    (function(){var t=localStorage.getItem('monopolyHallTheme')||'america50';if(['america50','classic','artdeco','scandinavian','wood','neon'].indexOf(t)!==-1){document.body.setAttribute('data-hall-theme',t);}})();
+  </script>
   <!-- Theme Toggle -->
   <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -127,14 +130,18 @@
 
   <!-- Modals -->
   
-  <!-- Property Modal -->
+  <!-- Property Modal (карточка: фото, описание, цена/действия) -->
   <div class="modal-overlay" id="propertyModal">
-    <div class="modal">
+    <div class="modal modal-card">
       <div class="modal-header">
         <h3 id="propertyModalTitle">Property</h3>
       </div>
       <div class="modal-body">
-        <div id="propertyModalContent"></div>
+        <div class="card-modal-image-wrap">
+          <img id="propertyModalImage" class="card-modal-image" src="" alt="" />
+        </div>
+        <p id="propertyModalDescription" class="card-modal-description"></p>
+        <div id="propertyModalContent" class="card-modal-details"></div>
       </div>
       <div class="modal-footer">
         <button class="action-btn secondary" id="propertyModalClose">Close</button>

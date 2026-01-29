@@ -25,27 +25,35 @@ import {
 } from './utils.js';
 
 const BOARD_CELLS = [
-  { index: 0, type: 'go', name: 'Go' },
-  { index: 1, type: 'street', name: 'Mediterranean Ave', color: 'brown', price: 60 },
-  { index: 2, type: 'community_chest', name: 'Community Chest' },
-  { index: 3, type: 'street', name: 'Baltic Ave', color: 'brown', price: 60 },
-  { index: 4, type: 'tax', name: 'Income Tax' },
-  { index: 5, type: 'railroad', name: 'Reading Railroad', price: 200 },
-  { index: 6, type: 'street', name: 'Oriental Ave', color: 'lightblue', price: 100 },
-  { index: 7, type: 'chance', name: 'Chance' },
-  { index: 8, type: 'street', name: 'Vermont Ave', color: 'lightblue', price: 100 },
-  { index: 9, type: 'jail', name: 'Jail' },
-  { index: 10, type: 'street', name: 'St. Charles Place', color: 'pink', price: 140 },
-  { index: 11, type: 'utility', name: 'Electric Company', price: 150 },
-  { index: 12, type: 'street', name: 'States Ave', color: 'pink', price: 140 },
-  { index: 13, type: 'railroad', name: 'Pennsylvania Railroad', price: 200 },
-  { index: 14, type: 'chance', name: 'Chance' },
-  { index: 15, type: 'street', name: 'Tennessee Ave', color: 'orange', price: 180 },
-  { index: 16, type: 'community_chest', name: 'Community Chest' },
-  { index: 17, type: 'street', name: 'New York Ave', color: 'orange', price: 200 },
-  { index: 18, type: 'free_parking', name: 'Free Parking' },
-  { index: 19, type: 'go_to_jail', name: 'Go to Jail' },
+  { index: 0, type: 'go', name: 'Go', description: 'Collect $200 salary as you pass. Start of the board.' },
+  { index: 1, type: 'street', name: 'Mediterranean Ave', color: 'brown', price: 60, rent: 6, description: 'Brown set. Lowest rent. Build houses and hotel.' },
+  { index: 2, type: 'community_chest', name: 'Community Chest', description: 'Draw a card. Follow the instructions (pay, receive, or move).' },
+  { index: 3, type: 'street', name: 'Baltic Ave', color: 'brown', price: 60, rent: 6, description: 'Brown set. Complete the set to double the rent.' },
+  { index: 4, type: 'tax', name: 'Income Tax', amount: 200, description: 'Pay $200 or 10% of your total assets (cash, property, buildings).' },
+  { index: 5, type: 'railroad', name: 'Reading Railroad', price: 200, rent: 25, description: 'Rent: $25 (1), $50 (2), $100 (3), $200 (4 railroads).' },
+  { index: 6, type: 'street', name: 'Oriental Ave', color: 'lightblue', price: 100, rent: 10, description: 'Light Blue set. Rent $10. Build to increase rent.' },
+  { index: 7, type: 'chance', name: 'Chance', description: 'Draw a Chance card. Advance, pay, receive money, or go to Jail.' },
+  { index: 8, type: 'street', name: 'Vermont Ave', color: 'lightblue', price: 100, rent: 10, description: 'Light Blue set. Complete the color set for bonuses.' },
+  { index: 9, type: 'jail', name: 'Jail', description: 'Just visiting — no penalty. Or you are in jail (wait or pay $50).' },
+  { index: 10, type: 'street', name: 'St. Charles Place', color: 'pink', price: 140, rent: 14, description: 'Pink set. Rent $14. Good for building.' },
+  { index: 11, type: 'utility', name: 'Electric Company', price: 150, description: 'Rent: 4× dice roll (one utility) or 10× (both utilities).' },
+  { index: 12, type: 'street', name: 'States Ave', color: 'pink', price: 140, rent: 14, description: 'Pink set. Rent $14.' },
+  { index: 13, type: 'railroad', name: 'Pennsylvania Railroad', price: 200, rent: 25, description: 'Second railroad. Same rent scale as Reading.' },
+  { index: 14, type: 'chance', name: 'Chance', description: 'Draw a Chance card.' },
+  { index: 15, type: 'street', name: 'Tennessee Ave', color: 'orange', price: 180, rent: 18, description: 'Orange set. Rent $18. Often landed on.' },
+  { index: 16, type: 'community_chest', name: 'Community Chest', description: 'Draw a Community Chest card.' },
+  { index: 17, type: 'street', name: 'New York Ave', color: 'orange', price: 200, rent: 20, description: 'Orange set. Rent $20. Highest in the set.' },
+  { index: 18, type: 'free_parking', name: 'Free Parking', description: 'Free rest. Sometimes house rule: collect the tax pool here.' },
+  { index: 19, type: 'go_to_jail', name: 'Go to Jail', description: 'Go directly to Jail. Do not pass Go. Do not collect $200.' },
 ];
+
+/** URL карточки клетки (локальные изображения в public/images/cards/) */
+function getCardImageUrl(cell) {
+  const type = (cell && cell.type) ? cell.type : 'default';
+  const known = ['go', 'street', 'chance', 'community_chest', 'tax', 'railroad', 'jail', 'utility', 'free_parking', 'go_to_jail'];
+  const file = known.includes(type) ? type : 'default';
+  return `/images/cards/${file}.svg`;
+}
 
 const TOTAL_CELLS = BOARD_CELLS.length;
 const BOARD_RADIUS = 350; // pixels from center
@@ -510,36 +518,75 @@ function updateGameUI() {
 }
 
 /**
- * Show property modal
+ * Show property modal — крупное фото карточки, описание, цена/действия
  */
 function showPropertyModal(cell, buyInfo) {
   const modal = document.getElementById('propertyModal');
   const title = document.getElementById('propertyModalTitle');
+  const img = document.getElementById('propertyModalImage');
+  const desc = document.getElementById('propertyModalDescription');
   const content = document.getElementById('propertyModalContent');
   
   if (!modal || !title || !content) return;
   
   title.textContent = cell.name;
-  content.innerHTML = `
-    <div style="text-align: center; margin-bottom: 20px;">
-      <div style="font-size: 3rem; margin-bottom: 12px;">${getCellEmoji(cell.type)}</div>
-      <p style="color: var(--text-secondary);">${cell.type === 'street' ? 'Property' : cell.type}</p>
-    </div>
-    ${buyInfo ? `
-      <div style="background: var(--bg-tertiary); padding: 16px; border-radius: 12px; margin-bottom: 16px;">
-        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-          <span>Price:</span>
-          <strong style="color: var(--accent-gold);">${formatMoney(buyInfo.price)}</strong>
-        </div>
-        ${buyInfo.rent ? `
-          <div style="display: flex; justify-content: space-between;">
-            <span>Rent:</span>
-            <strong>${formatMoney(buyInfo.rent)}</strong>
-          </div>
-        ` : ''}
+  if (img) {
+    img.src = getCardImageUrl(cell);
+    img.alt = cell.name;
+  }
+  if (desc) {
+    desc.textContent = cell.description || (cell.type === 'street' ? 'Property. Buy to collect rent.' : cell.type);
+  }
+  content.innerHTML = '';
+  if (buyInfo && (buyInfo.price || buyInfo.amount)) {
+    const price = buyInfo.price ?? buyInfo.amount ?? 0;
+    content.innerHTML += `
+      <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+        <span>Price:</span>
+        <strong style="color: var(--accent-gold);">${formatMoney(price)}</strong>
       </div>
-    ` : ''}
-  `;
+    `;
+  }
+  if (cell.rent !== undefined && cell.rent > 0) {
+    content.innerHTML += `
+      <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+        <span>Rent:</span>
+        <strong>${formatMoney(cell.rent)}</strong>
+      </div>
+    `;
+  }
+  if (buyInfo && buyInfo.rent !== undefined && buyInfo.rent > 0) {
+    content.innerHTML += `
+      <div style="display: flex; justify-content: space-between;">
+        <span>Rent:</span>
+        <strong>${formatMoney(buyInfo.rent)}</strong>
+      </div>
+    `;
+  }
+  if (cell.type === 'tax' && cell.amount) {
+    content.innerHTML += `
+      <div style="margin-top: 8px; font-size: 0.9rem; color: var(--text-secondary);">
+        Pay $200 or 10% of total assets.
+      </div>
+    `;
+  }
+  if (cell.type === 'utility') {
+    content.innerHTML += `
+      <div style="margin-top: 8px; font-size: 0.9rem; color: var(--text-secondary);">
+        Rent: 4× dice (one utility) or 10× (both).
+      </div>
+    `;
+  }
+  if (cell.type === 'railroad') {
+    content.innerHTML += `
+      <div style="margin-top: 8px; font-size: 0.9rem; color: var(--text-secondary);">
+        Rent: $25 / $50 / $100 / $200 (by number of railroads owned).
+      </div>
+    `;
+  }
+  if (!content.innerHTML.trim()) {
+    content.innerHTML = '<p style="color: var(--text-muted); margin: 0;">No purchase. Follow the cell rule.</p>';
+  }
   
   showModal('propertyModal');
 }

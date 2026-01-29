@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="280" viewBox="0 0 400 280">
+  <rect width="400" height="280" rx="12" fill="#ffd93d" stroke="#c9a227" stroke-width="2"/>
+  <text x="200" y="110" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#333">UTILITY</text>
+  <text x="200" y="160" text-anchor="middle" font-size="18" fill="#555">Rent: 4× or 10× dice</text>
+  <text x="200" y="210" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e5c5c">Price $150</text>
+</svg>

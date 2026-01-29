@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="280" viewBox="0 0 400 280">
+  <rect width="400" height="280" rx="12" fill="#1e90ff" stroke="#0d5a9e" stroke-width="2"/>
+  <text x="200" y="110" text-anchor="middle" font-family="serif" font-size="28" font-weight="bold" fill="#fff">FREE</text>
+  <text x="200" y="155" text-anchor="middle" font-family="serif" font-size="28" font-weight="bold" fill="#fff">PARKING</text>
+  <text x="200" y="210" text-anchor="middle" font-size="18" fill="rgba(255,255,255,0.9)">Collect the jackpot</text>
+</svg>

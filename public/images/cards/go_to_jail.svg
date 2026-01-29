@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="280" viewBox="0 0 400 280">
+  <rect width="400" height="280" rx="12" fill="#8b0000" stroke="#5c0000" stroke-width="2"/>
+  <text x="200" y="100" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#fff">GO TO</text>
+  <text x="200" y="145" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#fff">JAIL</text>
+  <text x="200" y="200" text-anchor="middle" font-size="18" fill="rgba(255,255,255,0.9)">Do not pass Go</text>
+  <text x="200" y="235" text-anchor="middle" font-size="16" fill="rgba(255,255,255,0.8)">Do not collect $200</text>
+</svg>

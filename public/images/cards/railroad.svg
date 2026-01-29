@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="280" viewBox="0 0 400 280">
+  <rect width="400" height="280" rx="12" fill="#333" stroke="#111" stroke-width="2"/>
+  <text x="200" y="100" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#fff">RAILROAD</text>
+  <text x="200" y="160" text-anchor="middle" font-size="18" fill="rgba(255,255,255,0.9)">Rent: $25 / $50 / $100 / $200</text>
+  <text x="200" y="210" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffd93d">Price $200</text>
+</svg>

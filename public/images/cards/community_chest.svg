@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="280" viewBox="0 0 400 280">
+  <rect width="400" height="280" rx="12" fill="#1e90ff" stroke="#0d5a9e" stroke-width="2"/>
+  <text x="200" y="90" text-anchor="middle" font-family="serif" font-size="20" font-weight="bold" fill="#fff">COMMUNITY</text>
+  <text x="200" y="125" text-anchor="middle" font-family="serif" font-size="20" font-weight="bold" fill="#fff">CHEST</text>
+  <text x="200" y="180" text-anchor="middle" font-size="18" fill="rgba(255,255,255,0.95)">Draw a card</text>
+  <text x="200" y="220" text-anchor="middle" font-size="16" fill="rgba(255,255,255,0.9)">Follow instructions</text>
+</svg>

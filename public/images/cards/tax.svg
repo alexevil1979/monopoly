@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="280" viewBox="0 0 400 280">
+  <rect width="400" height="280" rx="12" fill="#ffd93d" stroke="#c9a227" stroke-width="2"/>
+  <text x="200" y="110" text-anchor="middle" font-family="serif" font-size="28" font-weight="bold" fill="#333">INCOME TAX</text>
+  <text x="200" y="160" text-anchor="middle" font-size="20" fill="#555">Pay 200</text>
+  <text x="200" y="200" text-anchor="middle" font-size="16" fill="#666">or 10 pct of assets</text>
+</svg>

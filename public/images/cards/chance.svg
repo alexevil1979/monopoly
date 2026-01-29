@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="280" viewBox="0 0 400 280">
+  <rect width="400" height="280" rx="12" fill="#ff8c42" stroke="#c41e3a" stroke-width="2"/>
+  <text x="200" y="100" text-anchor="middle" font-family="serif" font-size="32" font-weight="bold" fill="#fff">CHANCE</text>
+  <text x="200" y="150" text-anchor="middle" font-size="20" fill="rgba(255,255,255,0.95)">?</text>
+  <text x="200" y="200" text-anchor="middle" font-size="16" fill="rgba(255,255,255,0.9)">Draw a card for</text>
+  <text x="200" y="230" text-anchor="middle" font-size="16" fill="rgba(255,255,255,0.9)">your fate</text>
+</svg>
