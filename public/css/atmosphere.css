@@ -1,0 +1,212 @@
+/* ============================================
+   Atmosphere — фотографические фоны и натуралистичные карточки/стол
+   Погружение в атмосферу выбранной темы
+   ============================================ */
+
+/* ---------- Фоновый слой с фото и затемнением ---------- */
+body {
+  background-color: var(--bg-primary);
+  background-image: var(--theme-bg-image, var(--table-texture, none));
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--theme-bg-overlay, transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Виньетка по краям для погружения */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, rgba(0,0,0,0.25) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Если тема не задаёт оверлей — лёгкий градиент */
+body:not([data-hall-theme])::before,
+body[data-hall-theme=""]::before {
+  background: radial-gradient(circle at 20% 50%, rgba(45, 134, 89, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 50%, rgba(255, 140, 66, 0.08) 0%, transparent 50%);
+}
+
+/* ---------- Лобби: карточка/панель на столе (натуралистично) ---------- */
+.lobby-container {
+  background: var(--theme-card-paper, var(--bg-glass)) !important;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: 20px;
+  padding: 48px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: var(--theme-surface-shadow, var(--shadow-lg)) !important;
+  border: var(--card-vintage-border, 1px solid var(--border-color));
+  position: relative;
+  overflow: hidden;
+}
+
+/* Лёгкая текстура «бумаги» на карточке лобби */
+.lobby-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.02) 2px,
+      rgba(0,0,0,0.02) 4px
+    );
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.lobby-container .lobby {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- Игровой стол (доска) — как доска на столе ---------- */
+.board-circle {
+  background: radial-gradient(circle at 50% 50%, var(--bg-tertiary) 0%, var(--bg-secondary) 45%, var(--bg-primary) 100%) !important;
+  border: 4px solid var(--border-color);
+  box-shadow: var(--theme-table-shadow, var(--shadow-lg)) !important;
+  position: relative;
+}
+
+/* Внутренняя глубина стола/доски */
+.board-circle::after {
+  content: '';
+  position: absolute;
+  top: 2%;
+  left: 2%;
+  right: 2%;
+  bottom: 2%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, transparent 0%, rgba(0,0,0,0.15) 100%);
+  pointer-events: none;
+}
+
+/* Центр доски — как «деревянная» или тканевая вставка */
+.board-center {
+  background: var(--theme-card-paper, var(--bg-glass)) !important;
+  backdrop-filter: blur(12px);
+  border: 2px solid var(--border-color);
+  box-shadow: inset 0 2px 12px rgba(0,0,0,0.2);
+}
+
+/* ---------- Клетки доски — карточки как настоящие карточки ---------- */
+.cell-card {
+  background: var(--theme-card-paper, var(--bg-card)) !important;
+  border: var(--card-vintage-border, 2px solid var(--border-color));
+  box-shadow: 
+    0 2px 4px rgba(0,0,0,0.15),
+    0 4px 12px rgba(0,0,0,0.1),
+    inset 0 1px 0 rgba(255,255,255,0.1) !important;
+  border-radius: 10px;
+  position: relative;
+}
+
+/* Текстура бумаги на карточках клеток */
+.cell-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 1px,
+      rgba(0,0,0,0.015) 1px,
+      rgba(0,0,0,0.015) 2px
+    );
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.cell-card:hover {
+  box-shadow: 
+    0 6px 16px rgba(0,0,0,0.2),
+    0 8px 24px rgba(0,0,0,0.15),
+    inset 0 1px 0 rgba(255,255,255,0.12) !important;
+}
+
+/* ---------- Модалки — карточки поверх стола ---------- */
+.modal {
+  background: var(--theme-card-paper, var(--bg-glass)) !important;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: var(--card-vintage-border, 2px solid var(--border-color));
+  box-shadow: var(--theme-surface-shadow, var(--shadow-lg)) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.modal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.02) 2px,
+    rgba(0,0,0,0.02) 4px
+  );
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.modal .modal-header,
+.modal .modal-body,
+.modal .modal-footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- Панель игроков — карточки игроков на столе ---------- */
+.player-card {
+  background: var(--theme-card-paper, var(--bg-glass)) !important;
+  border: var(--card-vintage-border, 2px solid var(--border-color));
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2), 0 2px 4px rgba(0,0,0,0.1) !important;
+}
+
+/* ---------- HUD (нижняя панель) — как панель на краю стола ---------- */
+.game-hud {
+  background: var(--theme-card-paper, var(--bg-glass)) !important;
+  backdrop-filter: blur(20px);
+  border: var(--card-vintage-border, 2px solid var(--border-color));
+  box-shadow: var(--theme-surface-shadow, var(--shadow-lg)) !important;
+}
+
+/* ---------- Чат — карточка в углу ---------- */
+.chat-container {
+  background: var(--theme-card-paper, var(--bg-glass)) !important;
+  border: var(--card-vintage-border, 1px solid var(--border-color));
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3) !important;
+}

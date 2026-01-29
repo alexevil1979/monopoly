@@ -18,26 +18,11 @@
 
 body {
   font-family: var(--font-body), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: var(--table-texture, linear-gradient(135deg, var(--green-dark) 0%, var(--bg-primary) 50%, #000 100%));
-  background-attachment: fixed;
+  /* Фон и оверлей задаются в atmosphere.css (фото + затемнение по теме) */
   color: var(--text-primary);
   min-height: 100vh;
   overflow-x: hidden;
   position: relative;
-}
-
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: 
-    radial-gradient(circle at 20% 50%, rgba(45, 134, 89, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 80% 50%, rgba(255, 140, 66, 0.08) 0%, transparent 50%);
-  pointer-events: none;
-  z-index: 0;
 }
 
 h1, h2, h3 {
