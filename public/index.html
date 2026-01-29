@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Monopoly Online — Premium Edition</title>
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+</head>
+<body>
+  <!-- Theme Toggle -->
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="5"></circle>
+      <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+    </svg>
+  </button>
+
+  <!-- Loading Spinner -->
+  <div class="loading-spinner" id="loadingSpinner">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Reconnect Overlay -->
+  <div class="reconnect-overlay" id="reconnectOverlay">
+    <div class="spinner"></div>
+    <div class="reconnect-message">Reconnecting...</div>
+  </div>
+
+  <!-- Confetti Container -->
+  <div class="confetti-container" id="confettiContainer"></div>
+
+  <!-- Lobby Screen -->
+  <div id="lobbyScreen" class="screen active">
+    <div class="lobby-container">
+      <div class="lobby">
+        <h1>Monopoly Online</h1>
+        <p>Create or join a game room</p>
+        
+        <div class="lobby-input-group">
+          <label for="playerName">Your Name</label>
+          <input type="text" id="playerName" placeholder="Enter your name" value="Player" maxlength="20" />
+        </div>
+
+        <button id="btnCreate" class="action-btn primary">Create Room</button>
+        
+        <div style="text-align: center; margin: 24px 0; color: var(--text-secondary);">or</div>
+        
+        <div class="lobby-input-group">
+          <label for="joinCode">Room Code</label>
+          <input type="text" id="joinCode" placeholder="Enter room code" maxlength="6" style="text-transform: uppercase; font-family: monospace; letter-spacing: 4px;" />
+        </div>
+
+        <button id="btnJoin" class="action-btn secondary">Join Room</button>
+        
+        <p id="lobbyError" class="error" style="display: none;"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Room Screen -->
+  <div id="roomScreen" class="screen">
+    <div class="room-header">
+      <h2>Room: <span id="roomCode" style="font-family: monospace; letter-spacing: 4px; color: var(--accent-gold);"></span></h2>
+      <p style="color: var(--text-secondary); margin-top: 8px;">Share this code with your friends</p>
+    </div>
+    
+    <div class="players" id="playersList"></div>
+    
+    <div id="lobbyActions" style="text-align: center; margin-top: 32px;">
+      <button id="btnReady" class="action-btn primary">I'm Ready</button>
+      <p id="roomStatus" class="status" style="margin-top: 16px; padding: 16px; background: var(--bg-glass); border-radius: 12px; color: var(--text-secondary);">
+        Waiting for players. Click "I'm ready" when everyone has joined.
+      </p>
+    </div>
+    
+    <p id="roomError" class="error" style="display: none;"></p>
+  </div>
+
+  <!-- Game Screen -->
+  <div id="gameScreen" class="screen">
+    <!-- Board Container -->
+    <div class="board-container">
+      <div class="board-wrapper">
+        <div class="board-circle" id="boardCircle">
+          <div class="board-center">
+            <h3>MONOPOLY</h3>
+          </div>
+          <div id="board" class="board-cells"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Players Panel -->
+    <div class="players-panel" id="playersPanel">
+      <!-- Players will be rendered here -->
+    </div>
+
+    <!-- Game HUD -->
+    <div class="game-hud">
+      <div class="hud-status" id="gameStatus">Waiting for game to start...</div>
+      
+      <div class="dice-container" id="diceContainer" style="display: none;">
+        <div class="dice" id="dice1">🎲</div>
+        <div class="dice" id="dice2">🎲</div>
+      </div>
+      
+      <div class="game-actions" id="gameActions"></div>
+      
+      <p id="gameError" class="error" style="display: none;"></p>
+    </div>
+  </div>
+
+  <!-- Modals -->
+  
+  <!-- Property Modal -->
+  <div class="modal-overlay" id="propertyModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="propertyModalTitle">Property</h3>
+      </div>
+      <div class="modal-body">
+        <div id="propertyModalContent"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="action-btn secondary" id="propertyModalClose">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chance/Community Chest Card Modal -->
+  <div class="modal-overlay" id="cardModal">
+    <div class="modal">
+      <div class="card-flip" id="cardFlip">
+        <div class="card-flip-inner">
+          <div class="card-flip-front">
+            <h3 id="cardModalType">Chance</h3>
+          </div>
+          <div class="card-flip-back">
+            <h3 id="cardModalTitle">Card Title</h3>
+            <p id="cardModalText">Card text goes here</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bankrupt Modal -->
+  <div class="modal-overlay" id="bankruptModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 style="color: #ff6b6b;">💸 Bankrupt!</h3>
+      </div>
+      <div class="modal-body">
+        <p id="bankruptModalText">You have gone bankrupt!</p>
+      </div>
+      <div class="modal-footer">
+        <button class="action-btn neutral" id="bankruptModalClose">Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Win Modal -->
+  <div class="modal-overlay" id="winModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 style="color: var(--accent-gold); font-size: 2.5rem;">🎉 Victory!</h3>
+      </div>
+      <div class="modal-body">
+        <p id="winModalText" style="font-size: 1.2rem; text-align: center;">Congratulations! You won!</p>
+      </div>
+      <div class="modal-footer">
+        <button class="action-btn primary" id="winModalClose">Awesome!</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chat -->
+  <div class="chat-container" id="chatContainer">
+    <div class="chat-header" id="chatHeader">
+      <h4>Chat</h4>
+      <button class="chat-toggle" id="chatToggle">−</button>
+    </div>
+    <div class="chat-log" id="chatLog"></div>
+    <div class="chat-input-container">
+      <input type="text" class="chat-input" id="chatInput" placeholder="Type a message..." maxlength="200" />
+    </div>
+  </div>
+
+  <!-- Event Log -->
+  <div class="event-log" id="eventLog">
+    <div style="font-weight: 600; margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid var(--border-color);">Recent Events</div>
+    <div id="eventLogItems"></div>
+  </div>
+
+  <!-- SVG Icons for Player Tokens (hidden, used via JS) -->
+  <svg style="display: none;" id="tokenIcons">
+    <defs>
+      <!-- Hat -->
+      <g id="token-hat">
+        <path d="M12 4 L8 12 L16 12 Z" fill="currentColor" />
+        <rect x="6" y="12" width="12" height="4" fill="currentColor" />
+      </g>
+      <!-- Car -->
+      <g id="token-car">
+        <rect x="4" y="8" width="16" height="8" rx="2" fill="currentColor" />
+        <circle cx="8" cy="16" r="3" fill="currentColor" />
+        <circle cx="16" cy="16" r="3" fill="currentColor" />
+      </g>
+      <!-- Dog -->
+      <g id="token-dog">
+        <circle cx="12" cy="10" r="6" fill="currentColor" />
+        <circle cx="9" cy="8" r="2" fill="white" />
+        <circle cx="15" cy="8" r="2" fill="white" />
+        <ellipse cx="12" cy="12" rx="3" ry="2" fill="white" />
+      </g>
+      <!-- Iron -->
+      <g id="token-iron">
+        <path d="M8 6 L16 6 L14 18 L10 18 Z" fill="currentColor" />
+        <rect x="11" y="4" width="2" height="4" fill="currentColor" />
+      </g>
+      <!-- Ship -->
+      <g id="token-ship">
+        <path d="M4 14 L20 14 L18 18 L6 18 Z" fill="currentColor" />
+        <path d="M12 6 L16 14 L8 14 Z" fill="currentColor" />
+      </g>
+      <!-- Thimble -->
+      <g id="token-thimble">
+        <ellipse cx="12" cy="10" rx="6" ry="8" fill="currentColor" />
+        <ellipse cx="12" cy="6" rx="4" ry="2" fill="currentColor" />
+      </g>
+    </defs>
+  </svg>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="module" src="/js/client.js"></script>
+  
+  <script>
+    // Fallback for non-module browsers
+    if (!window.io) {
+      document.body.innerHTML = '<div style="padding: 40px; text-align: center;"><h1>Error</h1><p>Socket.IO not loaded. Please refresh the page.</p></div>';
+    }
+  </script>
+</body>
+</html>
