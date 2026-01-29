@@ -1,7 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="400" height="280" viewBox="0 0 400 280">
-  <rect width="400" height="280" rx="12" fill="#8b0000" stroke="#5c0000" stroke-width="2"/>
-  <text x="200" y="100" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#fff">GO TO</text>
-  <text x="200" y="145" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#fff">JAIL</text>
-  <text x="200" y="200" text-anchor="middle" font-size="18" fill="rgba(255,255,255,0.9)">Do not pass Go</text>
-  <text x="200" y="235" text-anchor="middle" font-size="16" fill="rgba(255,255,255,0.8)">Do not collect $200</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#5c2d2d"/>
+      <stop offset="100%" style="stop-color:#3d1a1a"/>
+    </linearGradient>
+    <filter id="shadow" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+  <rect width="600" height="400" rx="16" fill="url(#bg)" filter="url(#shadow)" stroke="#c41e3a" stroke-width="2"/>
+  <rect width="600" height="64" rx="16 16 0 0" fill="rgba(0,0,0,0.4)"/>
+  <text x="300" y="42" text-anchor="middle" font-family="Georgia, serif" font-size="26" font-weight="bold" fill="#fff">GO TO JAIL</text>
+  <!-- Arrow + bars -->
+  <rect x="200" y="140" width="200" height="160" fill="rgba(0,0,0,0.3)" stroke="#8a4a4a" stroke-width="2" rx="4"/>
+  <line x1="220" y1="140" x2="220" y2="300" stroke="#a07070" stroke-width="5"/>
+  <line x1="280" y1="140" x2="280" y2="300" stroke="#a07070" stroke-width="5"/>
+  <line x1="340" y1="140" x2="340" y2="300" stroke="#a07070" stroke-width="5"/>
+  <line x1="380" y1="140" x2="380" y2="300" stroke="#a07070" stroke-width="5"/>
+  <path d="M420 220 L520 220 L480 180 M520 220 L480 260" fill="none" stroke="#f4d35e" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="300" y="355" text-anchor="middle" font-size="18" fill="rgba(255,255,255,0.9)">Do not pass GO</text>
 </svg>

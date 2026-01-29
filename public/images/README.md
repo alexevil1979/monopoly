@@ -1,17 +1,26 @@
 # Локальные изображения
 
-Все картинки хранятся локально в проекте.
+Все картинки хранятся локально в проекте. В интерфейсе приоритет у **.jpg** (фото), при отсутствии — используется **.svg** (фон/текстура).
+
+## Как добавить реальные фото
+
+- **Автоматически:** `npm run download-images` (скрипт скачивает с Lorem Picsum; при 403 см. ручную загрузку).
+- **Вручную:** см. **[PHOTOS.md](PHOTOS.md)** — таблицы имён файлов и ссылки на бесплатные стоки (Unsplash, Pexels, Pixabay).
 
 ## Темы фона (themes/)
 
-- `america50.svg`, `classic.svg`, `artdeco.svg`, `scandinavian.svg`, `wood.svg`, `neon.svg` — фоны зала.
-- Можно заменить на JPG/PNG того же имени (обновите расширение в `public/css/themes.css`).
+- `america50`, `classic`, `artdeco`, `scandinavian`, `wood`, `neon` — фоны зала (файлы `.jpg` или `.svg`).
+- В CSS уже задан приоритет `.jpg`, fallback на `.svg`.
 
 ## Карточки клеток (cards/)
 
-- По типу: `go.svg`, `street.svg`, `chance.svg`, `community_chest.svg`, `tax.svg`, `railroad.svg`, `jail.svg`, `utility.svg`, `free_parking.svg`, `go_to_jail.svg`.
-- Можно добавить карточки по индексу: `0.svg` … `19.svg` (см. cards/README.md).
+- По типу: `go`, `street`, `chance`, `community_chest`, `tax`, `railroad`, `jail`, `utility`, `free_parking`, `go_to_jail`, `default` (расширение `.jpg` или `.svg`).
+- В модалке карточки сначала подставляется `.jpg`, при ошибке загрузки — `.svg`.
 
 ## Стол (table/)
 
-- `surface.svg` — текстура стола под доской. Можно заменить на фото дерева/сукна.
+- `surface.jpg` или `surface.svg` — текстура стола под доской.
+
+## Декор (decoration/)
+
+- `frame.svg`, `corner.svg` — рамка и угловой орнамент (опционально). Можно заменить на `.jpg`.

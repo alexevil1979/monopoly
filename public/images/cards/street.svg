@@ -1,7 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="400" height="280" viewBox="0 0 400 280">
-  <rect width="400" height="280" rx="12" fill="#f5e6d3" stroke="#8b6914" stroke-width="2"/>
-  <rect x="0" y="0" width="400" height="40" rx="12 12 0 0" fill="#8b6914"/>
-  <text x="200" y="100" text-anchor="middle" font-family="serif" font-size="22" fill="#333">PROPERTY</text>
-  <text x="200" y="160" text-anchor="middle" font-size="16" fill="#666">Rent " Build " Monopoly</text>
-  <text x="200" y="220" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e5c5c">Price &amp; Rent on back</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f5e6d3"/>
+      <stop offset="100%" style="stop-color:#e8d4b8"/>
+    </linearGradient>
+    <linearGradient id="roof" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#8b6914"/>
+      <stop offset="100%" style="stop-color:#6d5210"/>
+    </linearGradient>
+    <filter id="shadow" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#000" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+  <rect width="600" height="400" rx="16" fill="url(#bg)" filter="url(#shadow)" stroke="#8b6914" stroke-width="2"/>
+  <rect width="600" height="56" rx="16 16 0 0" fill="url(#roof)"/>
+  <text x="300" y="38" text-anchor="middle" font-family="Georgia, serif" font-size="28" font-weight="bold" fill="#f5e6d3">PROPERTY</text>
+  <!-- House icon -->
+  <path d="M300 140 L360 200 L360 280 L240 280 L240 200 Z" fill="#8b6914" stroke="#6d5210" stroke-width="2"/>
+  <path d="M290 200 L310 200 L310 280 L290 280 Z" fill="#5c7c6b"/>
+  <rect x="295" y="230" width="10" height="20" fill="#f4d35e"/>
+  <rect x="268" y="260" width="14" height="20" fill="#5c7c6b"/>
+  <rect x="318" y="260" width="14" height="20" fill="#5c7c6b"/>
+  <text x="300" y="330" text-anchor="middle" font-size="20" fill="#2d2520">Buy • Build • Rent</text>
+  <text x="300" y="365" text-anchor="middle" font-size="16" fill="#5c5c5c">Price &amp; rent on back</text>
 </svg>

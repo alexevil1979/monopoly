@@ -94,7 +94,7 @@ body[data-hall-theme=""]::before {
   content: '';
   position: absolute;
   inset: -8%;
-  background: url('/images/table/surface.svg') center/cover no-repeat;
+  background: url('/images/table/surface.jpg') center/cover no-repeat, url('/images/table/surface.svg') center/cover no-repeat;
   border-radius: 50%;
   filter: brightness(0.85);
   z-index: -1;

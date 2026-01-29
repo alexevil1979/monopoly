@@ -1,7 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="400" height="280" viewBox="0 0 400 280">
-  <rect width="400" height="280" rx="12" fill="#1e90ff" stroke="#0d5a9e" stroke-width="2"/>
-  <text x="200" y="90" text-anchor="middle" font-family="serif" font-size="20" font-weight="bold" fill="#fff">COMMUNITY</text>
-  <text x="200" y="125" text-anchor="middle" font-family="serif" font-size="20" font-weight="bold" fill="#fff">CHEST</text>
-  <text x="200" y="180" text-anchor="middle" font-size="18" fill="rgba(255,255,255,0.95)">Draw a card</text>
-  <text x="200" y="220" text-anchor="middle" font-size="16" fill="rgba(255,255,255,0.9)">Follow instructions</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2d7d7d"/>
+      <stop offset="100%" style="stop-color:#1e5c5c"/>
+    </linearGradient>
+    <linearGradient id="chest" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#d4a574"/>
+      <stop offset="100%" style="stop-color:#8b6914"/>
+    </linearGradient>
+    <filter id="shadow" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <rect width="600" height="400" rx="16" fill="url(#bg)" filter="url(#shadow)" stroke="#1e5c5c" stroke-width="2"/>
+  <rect width="600" height="64" rx="16 16 0 0" fill="rgba(0,0,0,0.2)"/>
+  <text x="300" y="42" text-anchor="middle" font-family="Georgia, serif" font-size="26" font-weight="bold" fill="#fff">COMMUNITY CHEST</text>
+  <!-- Treasure chest -->
+  <rect x="220" y="180" width="160" height="100" rx="8" fill="url(#chest)" stroke="#6d5210" stroke-width="2"/>
+  <rect x="230" y="165" width="140" height="25" rx="4" fill="url(#chest)" stroke="#6d5210" stroke-width="2"/>
+  <rect x="255" y="200" width="90" height="8" fill="#6d5210"/>
+  <circle cx="280" cy="235" r="12" fill="#f4d35e" stroke="#e8b923" stroke-width="2"/>
+  <circle cx="320" cy="235" r="12" fill="#f4d35e" stroke="#e8b923" stroke-width="2"/>
+  <text x="300" y="320" text-anchor="middle" font-size="20" fill="rgba(255,255,255,0.95)">Draw a card</text>
+  <text x="300" y="355" text-anchor="middle" font-size="18" fill="rgba(255,255,255,0.85)">for fortune or fee</text>
 </svg>

@@ -37,7 +37,7 @@
   --street-orange: #e85d4c;
   --table-texture: linear-gradient(135deg, #2d2520 0%, #1a1510 50%, #3d322a 100%);
   --card-vintage-border: 3px double rgba(196, 30, 58, 0.5);
-  --theme-bg-image: url('/images/themes/america50.svg');
+  --theme-bg-image: url('/images/themes/america50.jpg'), url('/images/themes/america50.svg');
   --theme-bg-overlay: linear-gradient(180deg, rgba(26,21,16,0.72) 0%, rgba(26,21,16,0.92) 100%);
   --theme-surface-shadow: 0 25px 50px -12px rgba(0,0,0,0.6), 0 0 0 1px rgba(196,30,58,0.15);
   --theme-card-paper: rgba(245,230,211,0.97);
@@ -72,7 +72,7 @@
   --street-orange: #ffa500;
   --table-texture: linear-gradient(135deg, #0d4d2d 0%, #0a0a0f 50%, #000 100%);
   --card-vintage-border: 2px solid var(--border-color);
-  --theme-bg-image: url('/images/themes/classic.svg');
+  --theme-bg-image: url('/images/themes/classic.jpg'), url('/images/themes/classic.svg');
   --theme-bg-overlay: linear-gradient(180deg, rgba(10,10,15,0.8) 0%, rgba(10,10,15,0.95) 100%);
   --theme-surface-shadow: 0 25px 50px -12px rgba(0,0,0,0.7), 0 0 0 1px rgba(45,134,89,0.2);
   --theme-card-paper: rgba(30,30,46,0.92);
@@ -110,7 +110,7 @@
   --street-orange: #c9a227;
   --table-texture: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 50%, #2a2a2a 100%);
   --card-vintage-border: 2px solid var(--accent-primary);
-  --theme-bg-image: url('/images/themes/artdeco.svg');
+  --theme-bg-image: url('/images/themes/artdeco.jpg'), url('/images/themes/artdeco.svg');
   --theme-bg-overlay: linear-gradient(180deg, rgba(13,13,13,0.82) 0%, rgba(13,13,13,0.95) 100%);
   --theme-surface-shadow: 0 25px 50px -12px rgba(0,0,0,0.7), 0 0 40px rgba(212,175,55,0.08);
   --theme-card-paper: rgba(26,26,26,0.9);
@@ -148,7 +148,7 @@
   --street-orange: #c4a35a;
   --table-texture: linear-gradient(135deg, #e8e4dc 0%, #f8f6f1 50%, #fff 100%);
   --card-vintage-border: 1px solid var(--border-color);
-  --theme-bg-image: url('/images/themes/scandinavian.svg');
+  --theme-bg-image: url('/images/themes/scandinavian.jpg'), url('/images/themes/scandinavian.svg');
   --theme-bg-overlay: linear-gradient(180deg, rgba(248,246,241,0.7) 0%, rgba(248,246,241,0.92) 100%);
   --theme-surface-shadow: 0 25px 50px -12px rgba(0,0,0,0.12), 0 0 0 1px rgba(92,124,107,0.12);
   --theme-card-paper: rgba(255,255,255,0.98);
@@ -186,7 +186,7 @@
   --street-orange: #d4a574;
   --table-texture: linear-gradient(135deg, #5d4037 0%, #3e2723 50%, #6d4c41 100%);
   --card-vintage-border: 2px solid rgba(212, 165, 116, 0.5);
-  --theme-bg-image: url('https://images.unsplash.com/photo-1532372320572-cda25653a26d?auto=format&fit=crop&w=1920&q=80');
+  --theme-bg-image: url('/images/themes/wood.jpg'), url('/images/themes/wood.svg');
   --theme-bg-overlay: linear-gradient(180deg, rgba(62,39,35,0.78) 0%, rgba(62,39,35,0.94) 100%);
   --theme-surface-shadow: 0 25px 50px -12px rgba(0,0,0,0.55), 0 0 0 1px rgba(212,165,116,0.2);
   --theme-card-paper: rgba(245,235,220,0.96);
@@ -224,7 +224,7 @@
   --street-orange: #ff9900;
   --table-texture: linear-gradient(135deg, #0a0a12 0%, #12121a 50%, #1a1a28 100%);
   --card-vintage-border: 1px solid rgba(0, 255, 255, 0.4);
-  --theme-bg-image: url('/images/themes/neon.svg');
+  --theme-bg-image: url('/images/themes/neon.jpg'), url('/images/themes/neon.svg');
   --theme-bg-overlay: linear-gradient(180deg, rgba(10,10,18,0.85) 0%, rgba(10,10,18,0.96) 100%);
   --theme-surface-shadow: 0 25px 50px -12px rgba(0,0,0,0.6), 0 0 60px rgba(0,255,255,0.06);
   --theme-card-paper: rgba(26,26,40,0.94);

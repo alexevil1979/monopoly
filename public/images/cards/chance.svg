@@ -1,7 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="400" height="280" viewBox="0 0 400 280">
-  <rect width="400" height="280" rx="12" fill="#ff8c42" stroke="#c41e3a" stroke-width="2"/>
-  <text x="200" y="100" text-anchor="middle" font-family="serif" font-size="32" font-weight="bold" fill="#fff">CHANCE</text>
-  <text x="200" y="150" text-anchor="middle" font-size="20" fill="rgba(255,255,255,0.95)">?</text>
-  <text x="200" y="200" text-anchor="middle" font-size="16" fill="rgba(255,255,255,0.9)">Draw a card for</text>
-  <text x="200" y="230" text-anchor="middle" font-size="16" fill="rgba(255,255,255,0.9)">your fate</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff8c42"/>
+      <stop offset="100%" style="stop-color:#e85d4c"/>
+    </linearGradient>
+    <filter id="shadow" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <rect width="600" height="400" rx="16" fill="url(#bg)" filter="url(#shadow)" stroke="#c41e3a" stroke-width="2"/>
+  <rect width="600" height="64" rx="16 16 0 0" fill="rgba(0,0,0,0.2)"/>
+  <text x="300" y="44" text-anchor="middle" font-family="Georgia, serif" font-size="32" font-weight="bold" fill="#fff">CHANCE</text>
+  <circle cx="300" cy="220" r="80" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="4"/>
+  <text x="300" y="235" text-anchor="middle" font-size="120" font-weight="bold" fill="rgba(255,255,255,0.95)">?</text>
+  <text x="300" y="320" text-anchor="middle" font-size="20" fill="rgba(255,255,255,0.95)">Draw a card</text>
+  <text x="300" y="355" text-anchor="middle" font-size="18" fill="rgba(255,255,255,0.85)">for your fate</text>
 </svg>

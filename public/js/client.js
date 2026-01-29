@@ -47,12 +47,12 @@ const BOARD_CELLS = [
   { index: 19, type: 'go_to_jail', name: 'Go to Jail', description: 'Go directly to Jail. Do not pass Go. Do not collect $200.' },
 ];
 
-/** URL карточки клетки (локальные изображения в public/images/cards/) */
-function getCardImageUrl(cell) {
+/** URL карточки клетки (локальные изображения: приоритет .jpg, fallback .svg) */
+function getCardImageUrl(cell, ext = 'jpg') {
   const type = (cell && cell.type) ? cell.type : 'default';
   const known = ['go', 'street', 'chance', 'community_chest', 'tax', 'railroad', 'jail', 'utility', 'free_parking', 'go_to_jail'];
   const file = known.includes(type) ? type : 'default';
-  return `/images/cards/${file}.svg`;
+  return `/images/cards/${file}.${ext}`;
 }
 
 const TOTAL_CELLS = BOARD_CELLS.length;
@@ -531,7 +531,11 @@ function showPropertyModal(cell, buyInfo) {
   
   title.textContent = cell.name;
   if (img) {
-    img.src = getCardImageUrl(cell);
+    img.src = getCardImageUrl(cell, 'jpg');
+    img.onerror = function () {
+      this.onerror = null;
+      this.src = getCardImageUrl(cell, 'svg');
+    };
     img.alt = cell.name;
   }
   if (desc) {

@@ -1,6 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="400" height="280" viewBox="0 0 400 280">
-  <rect width="400" height="280" rx="12" fill="#2d7d7d" stroke="#1e5c5c" stroke-width="2"/>
-  <text x="200" y="120" text-anchor="middle" font-family="serif" font-size="36" font-weight="bold" fill="#fff">GO</text>
-  <text x="200" y="160" text-anchor="middle" font-size="18" fill="rgba(255,255,255,0.9)">Collect 200 as you pass</text>
-  <text x="200" y="200" text-anchor="middle" font-size="28" font-weight="bold" fill="#f4d35e">Start</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e5c5c"/>
+      <stop offset="100%" style="stop-color:#2d7d7d"/>
+    </linearGradient>
+    <linearGradient id="bar" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f4d35e"/>
+      <stop offset="100%" style="stop-color:#e8b923"/>
+    </linearGradient>
+    <filter id="shadow" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <rect width="600" height="400" rx="16" fill="url(#bg)" filter="url(#shadow)" stroke="#1e5c5c" stroke-width="2"/>
+  <rect width="600" height="72" rx="16 16 0 0" fill="url(#bar)"/>
+  <text x="300" y="48" text-anchor="middle" font-family="Georgia, serif" font-size="42" font-weight="bold" fill="#1a1510">GO</text>
+  <circle cx="300" cy="220" r="70" fill="none" stroke="#f4d35e" stroke-width="6" opacity="0.9"/>
+  <path d="M300 170 L300 270 M270 200 L330 240 L270 240 L330 200" fill="none" stroke="#f4d35e" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="300" y="320" text-anchor="middle" font-size="22" fill="rgba(255,255,255,0.95)">Collect $200</text>
+  <text x="300" y="355" text-anchor="middle" font-size="18" fill="rgba(255,255,255,0.8)">as you pass</text>
 </svg>
