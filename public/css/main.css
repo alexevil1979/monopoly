@@ -1051,7 +1051,7 @@ h1, h2, h3 {
 .card-modal-description {
   font-size: 1rem;
   line-height: 1.5;
-  color: var(--text-secondary);
+  color: #2a2520;
   margin-bottom: 16px;
   text-align: center;
 }
@@ -1060,6 +1060,11 @@ h1, h2, h3 {
   background: var(--bg-tertiary);
   padding: 16px;
   border-radius: 12px;
+  color: #1a1512;
+}
+.card-modal-details span,
+.card-modal-details strong {
+  color: inherit;
 }
 
 .modal-header {
@@ -1069,7 +1074,10 @@ h1, h2, h3 {
 
 .modal-header h3 {
   font-size: 1.8rem;
+  font-weight: 700;
+  color: #1a1512;
   margin-bottom: 8px;
+  text-shadow: 0 1px 1px rgba(255,255,255,0.5);
 }
 
 .modal-body {
