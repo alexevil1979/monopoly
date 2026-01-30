@@ -182,11 +182,12 @@ export function animateDiceRoll(diceElement, value) {
 }
 
 /**
- * Get dice emoji for value
+ * Get dice display for value (digits 1–6 for visibility)
  */
 export function getDiceEmoji(value) {
-  const diceFaces = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
-  return diceFaces[value - 1] || '🎲';
+  const n = Number(value);
+  if (n >= 1 && n <= 6) return String(n);
+  return '?';
 }
 
 /**
