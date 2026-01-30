@@ -616,7 +616,17 @@ h1, h2, h3 {
 }
 
 .board-cell:nth-child(n+1):nth-child(-n+10) .cell-token-spot { transform: rotate(0deg); }
-.board-cell:nth-child(n+11):nth-child(-n+15) .cell-token-spot { transform: rotate(180deg); }
+/* Верхний ряд: карточка повёрнута 180°, ставим точку в локальный низ-лево → визуально фишка в правом верхнем углу карточки */
+.board-cell:nth-child(n+11):nth-child(-n+15) .cell-token-spot {
+  top: auto;
+  right: auto;
+  bottom: 0;
+  left: 0;
+  transform: rotate(0deg);
+  transform-origin: bottom left;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
 .board-cell:nth-child(n+16):nth-child(-n+20) .cell-token-spot { transform: rotate(0deg); }
 
 .cell-token-spot .player-token {
