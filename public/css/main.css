@@ -321,11 +321,9 @@ h1, h2, h3 {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: radial-gradient(circle, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
-  border: 4px solid var(--border-color);
-  box-shadow: 
-    inset 0 0 60px rgba(0, 0, 0, 0.4),
-    var(--shadow-lg);
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 
 .board-center {
@@ -345,10 +343,27 @@ h1, h2, h3 {
   z-index: 10;
 }
 
-.board-center h3 {
-  font-size: 1.5rem;
+.board-center h3,
+.board-logo {
+  font-family: var(--font-heading), serif;
+  font-size: clamp(1rem, 3vw, 1.8rem);
+  font-weight: 700;
   text-align: center;
+  letter-spacing: 0.08em;
   color: var(--accent-gold);
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+}
+
+.board-logo {
+  color: var(--accent-gold);
+  background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-secondary) 50%, var(--accent-gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@supports not (background-clip: text) {
+  .board-logo { -webkit-text-fill-color: var(--accent-gold); }
 }
 
 .board-cells {
@@ -1054,8 +1069,9 @@ h1, h2, h3 {
 .chat-message {
   margin-bottom: 8px;
   padding: 6px 8px;
-  border-radius: 6px;
-  background: rgba(45, 134, 89, 0.1);
+  border-radius: 8px;
+  background: var(--bg-glass);
+  border-left: 3px solid var(--accent-primary);
   animation: messageSlideIn 0.3s ease;
 }
 
@@ -1077,8 +1093,8 @@ h1, h2, h3 {
 }
 
 .chat-message.mine {
-  background: rgba(59, 130, 246, 0.15);
-  border-left: 3px solid var(--accent-primary, #3b82f6);
+  background: var(--bg-tertiary);
+  border-left: 3px solid var(--accent-gold);
 }
 
 .chat-input-container {
