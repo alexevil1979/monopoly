@@ -122,8 +122,8 @@ export function renderPlayerTokens() {
   if (!state?.players) return;
 
   document.querySelectorAll('.player-token').forEach((el) => el.remove());
-  const boardCircle = document.querySelector('.board-circle');
-  if (!boardCircle) return;
+  const tokensLayer = document.getElementById('tokensLayer') || document.querySelector('.board-circle');
+  if (!tokensLayer) return;
 
   state.players.forEach((player, idx) => {
     if (player.bankrupt) return;
@@ -141,7 +141,7 @@ export function renderPlayerTokens() {
     tokenEl.style.top = `calc(50% + ${pos.y - BOARD_OFFSET_Y}px)`;
     tokenEl.title = player.name;
 
-    boardCircle.appendChild(tokenEl);
+    tokensLayer.appendChild(tokenEl);
 
     const prevPos = getPreviousPosition(player.id);
     if (prevPos !== undefined && prevPos !== player.position) {
