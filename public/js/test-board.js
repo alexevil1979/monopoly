@@ -5,6 +5,7 @@
 
 import { BOARD_CELLS, getCardImageUrl } from './gameState.js';
 import { formatMoney } from './utils.js';
+import { getCellDisplay, setLang, getLang, applyPage } from './i18n.js';
 
 const boardEl = document.getElementById('board');
 const themePicker = document.getElementById('themePicker');
@@ -36,9 +37,10 @@ function renderBoard() {
     const content = document.createElement('div');
     content.className = 'cell-card-content';
 
+    const display = getCellDisplay(cell.index);
     const name = document.createElement('div');
     name.className = 'cell-name';
-    name.textContent = cell.name;
+    name.textContent = display.name;
 
     const price = document.createElement('div');
     price.className = 'cell-price';
@@ -75,7 +77,19 @@ function cycleTheme() {
   setTheme(next);
 }
 
-// Инициализация
+(function initLang() {
+  const stored = localStorage.getItem('monopolyLang');
+  if (stored && ['en', 'ru', 'zh', 'hi', 'ar'].includes(stored)) setLang(stored);
+  const langSelect = document.getElementById('langSelectTest');
+  if (langSelect) {
+    langSelect.value = getLang();
+    langSelect.addEventListener('change', () => {
+      setLang(langSelect.value);
+      renderBoard();
+    });
+  }
+})();
+
 renderBoard();
 
 const currentTheme = document.body.getAttribute('data-hall-theme') || 'america50';

@@ -3,15 +3,15 @@
  * Entry point: Socket.IO, applyState, lobby/game handlers. UI and state in ui.js / gameState.js.
  */
 
-// ?v=3 — cache-busting после обрезки мусора в ui.js
-import { getState, setState, setMyId, getMyId } from './gameState.js?v=3';
+import { getState, setState, setMyId, getMyId } from './gameState.js';
+import { setLang, getLang, t, tParams } from './i18n.js';
 import {
   showScreen,
   renderBoard,
   renderPlayerTokens,
   renderPlayers,
   updateGameUI,
-} from './ui.js?v=3';
+} from './ui.js';
 import {
   formatMoney,
   showLoading,
@@ -22,7 +22,7 @@ import {
   setupModalClose,
   createConfetti,
   shakeElement,
-} from './utils.js?v=3';
+} from './utils.js';
 
 const socket = window.io
   ? window.io(window.location.origin, {
@@ -38,6 +38,16 @@ const gameScreen = document.getElementById('gameScreen');
 const roomCodeEl = document.getElementById('roomCode');
 const chatLog = document.getElementById('chatLog');
 const chatInput = document.getElementById('chatInput');
+
+(function initI18n() {
+  const stored = localStorage.getItem('monopolyLang');
+  setLang(stored && ['en', 'ru', 'zh', 'hi', 'ar'].includes(stored) ? stored : 'en');
+  const langSelect = document.getElementById('langSelect');
+  if (langSelect) {
+    langSelect.value = getLang();
+    langSelect.addEventListener('change', () => setLang(langSelect.value));
+  }
+})();
 
 function getActionHandlers() {
   if (!socket) return {};
@@ -78,8 +88,8 @@ function applyState(newState) {
     if (statusEl) {
       statusEl.textContent =
         state.players.every((p) => p.ready) && state.players.length >= 2
-          ? 'All ready! Game will start when host starts.'
-          : "Waiting for players. Click \"I'm ready\" when everyone has joined.";
+          ? t('room_status_start')
+          : t('room_status_wait');
     }
   } else if (state.phase === 'playing' || state.phase === 'finished') {
     if (oldPhase !== 'playing' && oldPhase !== 'finished') {
@@ -118,6 +128,20 @@ function setHallTheme(theme) {
     btn.addEventListener('click', () => setHallTheme(btn.getAttribute('data-hall-theme')));
   });
 })();
+
+window.__onLangChange = () => {
+  const state = getState();
+  if (state?.phase === 'lobby') {
+    const statusEl = document.getElementById('roomStatus');
+    if (statusEl) {
+      statusEl.textContent = state.players.every((p) => p.ready) && state.players.length >= 2 ? t('room_status_start') : t('room_status_wait');
+    }
+  } else if (state && (state.phase === 'playing' || state.phase === 'finished')) {
+    renderBoard(state.properties);
+    renderPlayerTokens();
+    updateGameUI(getActionHandlers());
+  }
+};
 
 const themeToggle = document.getElementById('themeToggle');
 let isDarkTheme = true;
@@ -209,7 +233,7 @@ if (socket) {
     if (data.playerId === getMyId()) {
       showModal('bankruptModal');
       const text = document.getElementById('bankruptModalText');
-      if (text) text.textContent = `You have gone bankrupt! ${data.reason || ''}`;
+      if (text) text.textContent = `${t('bankrupt_text')} ${data.reason || ''}`;
     }
     shakeElement(document.body);
   });
@@ -236,7 +260,7 @@ if (socket) {
 } else {
   const errorEl = document.getElementById('lobbyError');
   if (errorEl) {
-    errorEl.textContent = 'Socket.IO not loaded.';
+    errorEl.textContent = t('error_socket');
     errorEl.style.display = 'block';
   }
   showToast('Socket.IO not loaded.', 'error');
@@ -269,9 +293,9 @@ document.getElementById('btnJoin')?.addEventListener('click', () => {
   const errorEl = document.getElementById('lobbyError');
 
   if (!code) {
-    showToast('Enter room code', 'warning');
+    showToast(t('error_enter_code'), 'warning');
     if (errorEl) {
-      errorEl.textContent = 'Enter room code';
+      errorEl.textContent = t('error_enter_code');
       errorEl.style.display = 'block';
     }
     return;

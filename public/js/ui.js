@@ -18,6 +18,7 @@ import {
   BOARD_OFFSET_Y,
   getCardImageUrl,
 } from './gameState.js';
+import { getCellDisplay, t, tParams } from './i18n.js';
 import {
   TOKEN_COLORS,
   getPlayerToken,
@@ -83,9 +84,10 @@ export function renderBoard(properties = {}) {
     const content = document.createElement('div');
     content.className = 'cell-card-content';
 
+    const display = getCellDisplay(cell.index);
     const name = document.createElement('div');
     name.className = 'cell-name';
-    name.textContent = cell.name;
+    name.textContent = display.name;
 
     const price = document.createElement('div');
     price.className = 'cell-price';
@@ -225,7 +227,7 @@ export function renderPlayers(players, currentIndex, isGame) {
         const noProps = document.createElement('div');
         noProps.style.color = 'var(--text-muted)';
         noProps.style.fontSize = '0.8rem';
-        noProps.textContent = 'No properties';
+        noProps.textContent = t('no_properties');
         properties.appendChild(noProps);
       }
 
@@ -273,7 +275,7 @@ export function updateGameUI(handlers = {}) {
   let statusClass = 'waiting';
 
   if (state.phase === 'finished') {
-    statusText = state.winnerId === myId ? '🎉 You Win!' : 'Game Over';
+    statusText = state.winnerId === myId ? t('you_win') : t('game_over');
     statusClass = '';
     if (state.winnerId === myId) {
       createConfetti(100);
@@ -281,20 +283,21 @@ export function updateGameUI(handlers = {}) {
       const winText = document.getElementById('winModalText');
       if (winText) {
         const winner = state.players.find((p) => p.id === state.winnerId);
-        winText.textContent = winner ? `Congratulations ${winner.name}! You won!` : 'Congratulations! You won!';
+        winText.textContent = winner ? tParams('win_text_player', { name: winner.name }) : t('win_text');
       }
     }
   } else if (state.landedCell) {
-    statusText = `Landed on: ${state.landedCell.name}`;
+    const landedDisplay = getCellDisplay(state.landedCell.index);
+    statusText = tParams('landed_on', { name: landedDisplay.name });
     statusClass = '';
   } else if (state.drawnCard) {
     statusText = `Card: ${state.drawnCard.text}`;
     statusClass = '';
   } else if (isMyTurn) {
-    statusText = 'Your Turn!';
+    statusText = t('your_turn');
     statusClass = 'your-turn';
   } else if (current) {
-    statusText = `Waiting for ${current.name}...`;
+    statusText = tParams('waiting_for', { name: current.name });
     statusClass = 'waiting';
   }
 
@@ -322,7 +325,7 @@ export function updateGameUI(handlers = {}) {
   if (canRoll && handlers.onRoll) {
     const btn = document.createElement('button');
     btn.className = 'action-btn primary';
-    btn.textContent = '🎲 Roll Dice';
+    btn.textContent = t('roll_dice');
     btn.onclick = () => {
       btn.disabled = true;
       handlers.onRoll((res) => {
@@ -338,7 +341,7 @@ export function updateGameUI(handlers = {}) {
   if (canBuy && (handlers.onBuy || handlers.onSkip)) {
     const buyBtn = document.createElement('button');
     buyBtn.className = 'action-btn success';
-    buyBtn.textContent = `💰 Buy (${formatMoney(state.pendingBuyCell?.price ?? 0)})`;
+    buyBtn.textContent = `💰 ${t('buy')} (${formatMoney(state.pendingBuyCell?.price ?? 0)})`;
     buyBtn.onclick = () => handlers.onBuy && handlers.onBuy(onError);
     gameActions.appendChild(buyBtn);
 
@@ -352,7 +355,7 @@ export function updateGameUI(handlers = {}) {
   if (canEnd && handlers.onEndTurn) {
     const btn = document.createElement('button');
     btn.className = 'action-btn secondary';
-    btn.textContent = 'End Turn';
+    btn.textContent = t('end_turn');
     btn.onclick = () => handlers.onEndTurn(onError);
     gameActions.appendChild(btn);
   }
@@ -360,13 +363,13 @@ export function updateGameUI(handlers = {}) {
   if (canJailPay && (handlers.onJailPay || handlers.onJailWait)) {
     const payBtn = document.createElement('button');
     payBtn.className = 'action-btn success';
-    payBtn.textContent = 'Pay $50';
+    payBtn.textContent = t('pay_50');
     payBtn.onclick = () => handlers.onJailPay && handlers.onJailPay(onError);
     gameActions.appendChild(payBtn);
 
     const waitBtn = document.createElement('button');
     waitBtn.className = 'action-btn neutral';
-    waitBtn.textContent = 'Wait';
+    waitBtn.textContent = t('wait');
     waitBtn.onclick = () => handlers.onJailWait && handlers.onJailWait(onError);
     gameActions.appendChild(waitBtn);
   }
@@ -391,7 +394,8 @@ export function showPropertyModal(cell, buyInfo) {
 
   if (!modal || !title || !content) return;
 
-  title.textContent = cell.name;
+  const display = getCellDisplay(cell.index);
+  title.textContent = display.name;
   if (img) {
     img.src = getCardImageUrl(cell);
     img.onerror = function () {
@@ -418,7 +422,7 @@ export function showPropertyModal(cell, buyInfo) {
   if (cell.rent !== undefined && cell.rent > 0) {
     content.innerHTML += `
       <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-        <span>Rent:</span>
+        <span>${t('rent')}:</span>
         <strong>${formatMoney(cell.rent)}</strong>
       </div>
     `;
@@ -426,7 +430,7 @@ export function showPropertyModal(cell, buyInfo) {
   if (buyInfo && buyInfo.rent !== undefined && buyInfo.rent > 0) {
     content.innerHTML += `
       <div style="display: flex; justify-content: space-between;">
-        <span>Rent:</span>
+        <span>${t('rent')}:</span>
         <strong>${formatMoney(buyInfo.rent)}</strong>
       </div>
     `;
@@ -453,7 +457,7 @@ export function showPropertyModal(cell, buyInfo) {
     `;
   }
   if (!content.innerHTML.trim()) {
-    content.innerHTML = '<p style="color: var(--text-muted); margin: 0;">No purchase. Follow the cell rule.</p>';
+    content.innerHTML = `<p style="color: var(--text-muted); margin: 0;">${t('no_purchase')}</p>`;
   }
 
   showModal('propertyModal');
@@ -472,8 +476,8 @@ export function showCardModal(card) {
   if (!modal || !flip || !typeEl || !title || !text) return;
 
   const isChance = card.type === 'chance';
-  typeEl.textContent = isChance ? 'Chance' : 'Community Chest';
-  title.textContent = card.title || (isChance ? 'Chance' : 'Community Chest');
+  typeEl.textContent = isChance ? t('chance') : t('community_chest');
+  title.textContent = card.title || (isChance ? t('chance') : t('community_chest'));
   text.textContent = card.text || '';
 
   flip.classList.remove('flipped');

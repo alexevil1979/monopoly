@@ -156,7 +156,8 @@ h1, h2, h3 {
   font-size: 0.9rem;
 }
 
-.lobby input {
+.lobby input,
+.lobby select.lobby-select {
   width: 100%;
   padding: 14px 18px;
   border-radius: 12px;
@@ -166,6 +167,11 @@ h1, h2, h3 {
   font-size: 1rem;
   transition: all var(--transition-normal);
   font-family: inherit;
+}
+
+.lobby select.lobby-select {
+  cursor: pointer;
+  appearance: auto;
 }
 
 .lobby input:focus {
@@ -1499,4 +1505,20 @@ body.in-game .theme-toggle {
   .action-btn {
     width: 100%;
   }
+}
+
+/* RTL (Arabic) */
+[dir="rtl"] .theme-toggle {
+  right: auto;
+  left: 20px;
+}
+[dir="rtl"] .chat-container {
+  right: auto;
+  left: 20px;
+}
+[dir="rtl"] .lobby-container,
+[dir="rtl"] .modal,
+[dir="rtl"] .cell-name,
+[dir="rtl"] .cell-price {
+  text-align: center;
 }
