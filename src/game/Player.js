@@ -18,10 +18,17 @@ export function createPlayer(socketId, name = 'Player') {
     orderIndex: 0, // 0..n-1 for turn order
     lastDice: [0, 0],
     doublesCount: 0, // consecutive doubles this turn chain
+    /** Timestamp отключения; в течение REJOIN_WINDOW_MS игрок может вернуться. */
+    disconnectedAt: undefined,
   };
 }
 
 /** Check if player is bankrupt (money < 0). */
 export function isBankrupt(player) {
   return player.bankrupt || (player.money < 0);
+}
+
+/** Check if player is in rejoin window (disconnected but not yet expired). */
+export function isDisconnected(player) {
+  return player.disconnectedAt != null;
 }

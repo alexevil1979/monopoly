@@ -252,7 +252,7 @@ if (socket) {
         showLoading(false);
         if (res?.ok && res.state) {
           applyState(res.state);
-          showToast(t('rejoined_room'), 'success');
+          showToast(res.state.phase === 'playing' ? t('rejoined_game') : t('rejoined_room'), 'success');
         } else {
           clearRoomFromStorage();
           if (res?.error) showToast(res.error, 'warning');

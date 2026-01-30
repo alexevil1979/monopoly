@@ -36,6 +36,7 @@ export function attachGameSocket(io, redisOpts = {}) {
         const state = await getOrCreateRoom(code, socket.id, name || 'Player');
         socket.join(`room:${code}`);
         socket.roomCode = code;
+        socket.playerName = String(name || 'Player').trim().slice(0, 20);
         reply?.({ ok: true, code, state: getPublicState(state) });
         io.to(`room:${code}`).emit('room_state', getPublicState(state));
       } catch (err) {
@@ -54,11 +55,17 @@ export function attachGameSocket(io, redisOpts = {}) {
       try {
         const state = await joinRoom(normalizedCode, socket.id, name || 'Player');
         if (!state) {
-          reply?.({ ok: false, error: 'Room full or not found' });
+          const loaded = await loadRoomState(normalizedCode);
+          const error =
+            loaded?.phase === 'playing'
+              ? 'Game already started. You can rejoin within 30 seconds after disconnect.'
+              : 'Room full or not found';
+          reply?.({ ok: false, error });
           return;
         }
         socket.join(`room:${normalizedCode}`);
         socket.roomCode = normalizedCode;
+        socket.playerName = String(name || 'Player').trim().slice(0, 20);
         reply?.({ ok: true, state: getPublicState(state) });
         io.to(`room:${normalizedCode}`).emit('room_state', getPublicState(state));
       } catch (err) {

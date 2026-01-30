@@ -166,6 +166,7 @@ export function renderPlayers(players, currentIndex, isGame) {
     card.className = 'player-card';
     if (i === currentIndex) card.classList.add('current');
     if (p.bankrupt) card.classList.add('bankrupt');
+    if (p.disconnectedAt) card.classList.add('disconnected');
 
     const token = getPlayerToken(i);
     const initials = getInitials(p.name);
@@ -233,8 +234,9 @@ export function renderPlayers(players, currentIndex, isGame) {
 
       const status = document.createElement('div');
       status.className = 'player-status';
-      if (p.inJail) status.innerHTML = '🔒 In Jail';
-      if (p.lastDice?.[0]) {
+      if (p.disconnectedAt) status.innerHTML = t('player_disconnected');
+      else if (p.inJail) status.innerHTML = '🔒 In Jail';
+      if (p.lastDice?.[0] && !p.disconnectedAt) {
         const diceText = document.createElement('span');
         diceText.textContent = `🎲 ${p.lastDice[0]}+${p.lastDice[1]}`;
         status.appendChild(diceText);

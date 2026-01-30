@@ -716,6 +716,11 @@ h1, h2, h3 {
   filter: grayscale(100%);
 }
 
+.player-card.disconnected {
+  opacity: 0.75;
+  border-style: dashed;
+}
+
 .player-header {
   display: flex;
   align-items: center;

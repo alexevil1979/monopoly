@@ -3,7 +3,7 @@
  * Server-authoritative; all moves validated here.
  */
 import { BOARD, getCell, getRent, CELL_TYPES } from './Board.js';
-import { createPlayer, isBankrupt, STARTING_MONEY } from './Player.js';
+import { createPlayer, isBankrupt, isDisconnected, STARTING_MONEY } from './Player.js';
 import { CHANCE_CARDS, COMMUNITY_CHEST_CARDS, shuffleCards, drawCard } from './cards.js';
 import { saveRoomState, loadRoomState } from '../utils/redisClient.js';
 
@@ -13,6 +13,8 @@ const GO_POSITION = 0;
 const JAIL_BAIL = 50;
 const MIN_PLAYERS = 2;
 const MAX_PLAYERS = 4;
+/** Окно переподключения (мс): игрок может вернуться в уже идущую партию. */
+const REJOIN_WINDOW_MS = 30 * 1000;
 
 /** Generate 6-char room code. */
 export function generateRoomCode() {
@@ -48,18 +50,85 @@ export async function getOrCreateRoom(code, hostSocketId, hostName) {
 }
 
 /**
+ * Очистить игроков, у которых истекло окно переподключения (30 с).
+ */
+function cleanExpiredDisconnects(state) {
+  const now = Date.now();
+  for (const p of state.players) {
+    if (p.disconnectedAt != null && now - p.disconnectedAt > REJOIN_WINDOW_MS) {
+      p.bankrupt = true;
+      p.money = -1;
+      delete p.disconnectedAt;
+    }
+  }
+  const alive = state.players.filter((p) => !isBankrupt(p));
+  if (alive.length <= 1) {
+    state.phase = 'finished';
+    state.winnerId = alive[0]?.id ?? null;
+    return;
+  }
+  while (isBankrupt(state.players[state.currentPlayerIndex])) {
+    state.currentPlayerIndex = nextActivePlayerIndex(state);
+    const next = state.players[state.currentPlayerIndex];
+    state.pendingAction = next?.inJail ? 'jail_choice' : 'roll';
+  }
+}
+
+/**
+ * Индекс следующего активного игрока (не банкрот и не в окне отключения).
+ */
+function nextActivePlayerIndex(state) {
+  const n = state.players.length;
+  let next = (state.currentPlayerIndex + 1) % n;
+  let steps = 0;
+  while (steps < n) {
+    const p = state.players[next];
+    if (!isBankrupt(p) && !isDisconnected(p)) return next;
+    next = (next + 1) % n;
+    steps++;
+  }
+  return state.currentPlayerIndex;
+}
+
+/**
  * Join room. Returns updated state or null if full/invalid.
+ * В фазе lobby — обычный вход. В фазе playing — только rejoin по имени в течение 30 с.
  */
 export async function joinRoom(code, socketId, name) {
   const state = await loadRoomState(code);
-  if (!state || state.phase !== 'lobby') return null;
-  if (state.players.some((p) => p.id === socketId)) return state;
-  if (state.players.length >= MAX_PLAYERS) return null;
-  const player = createPlayer(socketId, name);
-  player.orderIndex = state.players.length;
-  state.players.push(player);
-  await saveRoomState(code, state);
-  return state;
+  if (!state) return null;
+  const normalizedName = String(name || 'Player').trim().slice(0, 20);
+
+  if (state.phase === 'lobby') {
+    if (state.players.some((p) => p.id === socketId)) return state;
+    if (state.players.length >= MAX_PLAYERS) return null;
+    const player = createPlayer(socketId, normalizedName);
+    player.orderIndex = state.players.length;
+    state.players.push(player);
+    await saveRoomState(code, state);
+    return state;
+  }
+
+  if (state.phase === 'playing') {
+    cleanExpiredDisconnects(state);
+    const player = state.players.find(
+      (p) =>
+        p.name === normalizedName &&
+        p.disconnectedAt != null &&
+        Date.now() - p.disconnectedAt <= REJOIN_WINDOW_MS
+    );
+    if (!player) return null;
+    const oldId = player.id;
+    player.id = socketId;
+    delete player.disconnectedAt;
+    for (const [cellIndex, ownerId] of Object.entries(state.properties)) {
+      if (ownerId === oldId) state.properties[cellIndex] = socketId;
+    }
+    await saveRoomState(code, state);
+    return state;
+  }
+
+  return null;
 }
 
 /**
@@ -85,25 +154,34 @@ export async function setReady(code, socketId) {
 }
 
 /**
- * Leave room (disconnect). Remove player; if playing, mark bankrupt or end game.
+ * Leave room (disconnect).
+ * В lobby — помечаем банкротом и удаляем из «живых».
+ * В playing — не банкротим: ставим disconnectedAt; в течение 30 с игрок может rejoin.
  */
 export async function leaveRoom(code, socketId) {
   const state = await loadRoomState(code);
   if (!state) return null;
   const idx = state.players.findIndex((p) => p.id === socketId);
   if (idx === -1) return state;
+
+  if (state.phase === 'playing') {
+    const player = state.players[idx];
+    player.disconnectedAt = Date.now();
+    if (state.currentPlayerIndex === idx) {
+      state.currentPlayerIndex = nextActivePlayerIndex(state);
+      const nextPlayer = state.players[state.currentPlayerIndex];
+      state.pendingAction = nextPlayer?.inJail ? 'jail_choice' : 'roll';
+    }
+    await saveRoomState(code, state);
+    return state;
+  }
+
   state.players[idx].bankrupt = true;
   state.players[idx].money = -1;
   const alive = state.players.filter((p) => !isBankrupt(p));
   if (alive.length <= 1) {
     state.phase = 'finished';
     state.winnerId = alive[0]?.id ?? null;
-  } else if (state.phase === 'playing') {
-    // Advance to next alive player if current left
-    while (isBankrupt(state.players[state.currentPlayerIndex])) {
-      state.currentPlayerIndex = (state.currentPlayerIndex + 1) % state.players.length;
-    }
-    state.pendingAction = 'roll';
   }
   await saveRoomState(code, state);
   return state;
@@ -116,6 +194,11 @@ export async function leaveRoom(code, socketId) {
 export async function rollDice(code, socketId) {
   const state = await loadRoomState(code);
   if (!state || state.phase !== 'playing') return null;
+  cleanExpiredDisconnects(state);
+  if (state.phase === 'finished') {
+    await saveRoomState(code, state);
+    return state;
+  }
   if (state.pendingAction !== 'roll') return null;
   const current = state.players[state.currentPlayerIndex];
   if (current.id !== socketId || current.bankrupt) return null;
@@ -269,6 +352,8 @@ function applyCardEffect(state, player, card) {
 export async function buyProperty(code, socketId) {
   const state = await loadRoomState(code);
   if (!state || state.phase !== 'playing') return null;
+  cleanExpiredDisconnects(state);
+  if (state.phase === 'finished') return state;
   if (state.pendingAction !== 'buy') return null;
   const current = state.players[state.currentPlayerIndex];
   if (current.id !== socketId || current.bankrupt) return null;
@@ -289,6 +374,8 @@ export async function buyProperty(code, socketId) {
 export async function skipBuy(code, socketId) {
   const state = await loadRoomState(code);
   if (!state || state.phase !== 'playing') return null;
+  cleanExpiredDisconnects(state);
+  if (state.phase === 'finished') return state;
   if (state.pendingAction !== 'buy') return null;
   const current = state.players[state.currentPlayerIndex];
   if (current.id !== socketId) return null;
@@ -304,6 +391,8 @@ export async function skipBuy(code, socketId) {
 export async function jailChoice(code, socketId, pay) {
   const state = await loadRoomState(code);
   if (!state || state.phase !== 'playing') return null;
+  cleanExpiredDisconnects(state);
+  if (state.phase === 'finished') return null;
   const current = state.players[state.currentPlayerIndex];
   if (current.id !== socketId || !current.inJail) return null;
   state.pendingAction = state.pendingAction || 'jail_choice';
@@ -337,6 +426,11 @@ export async function jailChoice(code, socketId, pay) {
 export async function endTurn(code, socketId) {
   const state = await loadRoomState(code);
   if (!state || state.phase !== 'playing') return null;
+  cleanExpiredDisconnects(state);
+  if (state.phase === 'finished') {
+    await saveRoomState(code, state);
+    return state;
+  }
   if (state.pendingAction !== 'end_turn') return null;
   const current = state.players[state.currentPlayerIndex];
   if (current.id !== socketId) return null;
@@ -388,6 +482,7 @@ export function getPublicState(state) {
       bankrupt: p.bankrupt,
       orderIndex: p.orderIndex,
       lastDice: p.lastDice,
+      disconnectedAt: p.disconnectedAt ?? null,
     })),
     currentPlayerIndex: state.currentPlayerIndex,
     properties: { ...state.properties },

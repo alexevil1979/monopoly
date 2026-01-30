@@ -133,6 +133,7 @@ const translations = {
     click_to_copy: 'Click to copy',
     copied: 'Copied!',
     rejoined_room: 'Back in room',
+    rejoined_game: 'Back in game',
     cells: [
       { name: 'Go', description: 'Collect $200 salary as you pass. Start of the board.' },
       { name: 'Mediterranean Ave', description: 'Brown set. Lowest rent. Build houses and hotel.' },
@@ -209,6 +210,8 @@ const translations = {
     click_to_copy: 'Нажмите, чтобы скопировать',
     copied: 'Скопировано!',
     rejoined_room: 'Снова в комнате',
+    rejoined_game: 'Вернулись в игру',
+    player_disconnected: 'Отключён (30 с на возврат)',
     cells: [
       { name: 'Старт', description: 'Получите $200 при проходе. Начало доски.' },
       { name: 'Средиземноморская', description: 'Коричневая группа. Низкая аренда.' },
@@ -285,6 +288,8 @@ const translations = {
     click_to_copy: '点击复制',
     copied: '已复制！',
     rejoined_room: '已回到房间',
+    rejoined_game: '已回到对局',
+    player_disconnected: '已断开（30秒内可重连）',
     cells: [
       { name: '起点', description: '经过时获得 $200。棋盘起点。' },
       { name: '地中海大道', description: '棕色组。最低租金。' },
@@ -361,6 +366,8 @@ const translations = {
     click_to_copy: 'कॉपी करने के लिए क्लिक करें',
     copied: 'कॉपी हो गया!',
     rejoined_room: 'कमरे में वापस',
+    rejoined_game: 'खेल में वापस',
+    player_disconnected: 'डिस्कनेक्ट (30 सेकंड में वापस आएं)',
     cells: [
       { name: 'स्टार्ट', description: 'गुजरने पर $200 लें।' },
       { name: 'मेडिटेरेनियन एवेन्यू', description: 'भूरा सेट। कम किराया।' },
@@ -437,6 +444,8 @@ const translations = {
     click_to_copy: 'انقر للنسخ',
     copied: 'تم النسخ!',
     rejoined_room: 'عدت إلى الغرفة',
+    rejoined_game: 'عدت إلى اللعبة',
+    player_disconnected: 'غير متصل (30 ثانية لإعادة الدخول)',
     cells: [
       { name: 'الانطلاق', description: 'احصل على $200 عند المرور.' },
       { name: 'المتوسطية', description: 'المجموعة البنية.' },
