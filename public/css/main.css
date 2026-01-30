@@ -602,12 +602,12 @@ h1, h2, h3 {
 /* Контейнер фишки — угол карточки (в локальных координатах: bottom-right = внешний правый) */
 .cell-token-spot {
   position: absolute;
-  bottom: 0;
+  top: 0;
   right: 0;
   width: 46px;
   height: 46px;
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: flex-end;
   flex-wrap: wrap;
   gap: 2px;
