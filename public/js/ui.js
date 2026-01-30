@@ -27,6 +27,7 @@ import {
   getCellPosition,
   animateTokenMovement,
   animateDiceRoll,
+  getDiceEmoji,
   showModal,
   showToast,
   createConfetti,
@@ -40,6 +41,9 @@ const gameActions = document.getElementById('gameActions');
 const diceContainer = document.getElementById('diceContainer');
 const dice1 = document.getElementById('dice1');
 const dice2 = document.getElementById('dice2');
+
+/** Последние отображённые кубики: только при изменении запускаем анимацию (не при каждом updateGameUI) */
+let lastDisplayedDiceKey = null;
 
 const lobbyScreen = document.getElementById('lobbyScreen');
 const roomScreen = document.getElementById('roomScreen');
@@ -308,11 +312,27 @@ export function updateGameUI(handlers = {}) {
     gameStatus.className = `hud-status ${statusClass}`;
   }
 
-  if (current?.lastDice?.[0]) {
+  if (current?.lastDice?.[0] != null) {
     if (diceContainer) diceContainer.style.display = 'flex';
-    if (dice1) animateDiceRoll(dice1, current.lastDice[0]);
-    if (dice2) animateDiceRoll(dice2, current.lastDice[1]);
+    const d1 = current.lastDice[0];
+    const d2 = current.lastDice[1];
+    const key = `${state.currentPlayerIndex}-${d1}-${d2}`;
+    if (key !== lastDisplayedDiceKey) {
+      lastDisplayedDiceKey = key;
+      /* Анимация броска только когда это ход текущего игрока (он только что бросил), не при смене хода */
+      if (isMyTurn) {
+        if (dice1) animateDiceRoll(dice1, d1);
+        if (dice2) animateDiceRoll(dice2, d2);
+      } else {
+        if (dice1) dice1.textContent = getDiceEmoji(d1);
+        if (dice2) dice2.textContent = getDiceEmoji(d2);
+      }
+    } else {
+      if (dice1) dice1.textContent = getDiceEmoji(d1);
+      if (dice2) dice2.textContent = getDiceEmoji(d2);
+    }
   } else {
+    lastDisplayedDiceKey = null;
     if (diceContainer) diceContainer.style.display = 'none';
   }
 
