@@ -518,7 +518,7 @@ export function showCardModal(card) {
   const isChance = card.type === 'chance';
   typeEl.textContent = isChance ? t('chance') : t('community_chest');
   title.textContent = card.title || (isChance ? t('chance') : t('community_chest'));
-  text.textContent = card.text || '';
+  text.textContent = getCardText(card.id, card.text || '');
 
   flip.classList.remove('flipped');
   showModal('cardModal');
