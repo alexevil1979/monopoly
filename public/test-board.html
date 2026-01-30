@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Тест доски — Monopoly Online</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%232d8659' rx='4'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23fff'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/themes.css" />
+  <link rel="stylesheet" href="/css/atmosphere.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <style>
+    .test-theme-bar {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px;
+      background: var(--bg-glass);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      border: 1px solid var(--border-color);
+      z-index: 999;
+      box-shadow: var(--shadow-lg);
+    }
+    .test-theme-bar span { color: var(--text-secondary); font-size: 0.9rem; }
+    .test-hint {
+      padding: 16px;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body data-hall-theme="america50" class="in-game">
+  <script>
+    (function(){
+      var t = localStorage.getItem('monopolyHallTheme') || 'america50';
+      if (['america50','classic','artdeco','scandinavian','wood','neon','luxury'].indexOf(t) !== -1) {
+        document.body.setAttribute('data-hall-theme', t);
+      }
+    })();
+  </script>
+
+  <!-- Theme Toggle -->
+  <button class="theme-toggle" id="themeToggle" aria-label="Сменить тему">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="5"></circle>
+      <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+    </svg>
+  </button>
+
+  <!-- Test Screen: только игровой экран -->
+  <div id="gameScreen" class="screen active">
+    <div class="board-container">
+      <div class="board-wrapper">
+        <div class="board-circle" id="boardCircle">
+          <div class="board-center">
+            <div class="board-logo" aria-label="MAXIPOLY">MAXIPOLY</div>
+          </div>
+          <div id="board" class="board-cells"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="players-panel" id="playersPanel">
+      <p class="test-hint">Тест доски — без комнаты и сервера</p>
+    </div>
+
+    <div class="game-hud">
+      <div class="hud-status" id="gameStatus">Тестовая страница: доска и темы</div>
+    </div>
+  </div>
+
+  <!-- Выбор темы для теста -->
+  <div class="test-theme-bar" aria-label="Тема оформления">
+    <span>Тема:</span>
+    <div class="theme-picker" id="themePicker" role="group">
+      <button type="button" class="theme-picker-btn active" data-hall-theme="america50" title="America 50s">🇺🇸 50s</button>
+      <button type="button" class="theme-picker-btn" data-hall-theme="classic" title="Classic">🎲 Classic</button>
+      <button type="button" class="theme-picker-btn" data-hall-theme="artdeco" title="Art Deco">✨ Art Deco</button>
+      <button type="button" class="theme-picker-btn" data-hall-theme="scandinavian" title="Nordic">🌲 Nordic</button>
+      <button type="button" class="theme-picker-btn" data-hall-theme="wood" title="Wood">🪵 Wood</button>
+      <button type="button" class="theme-picker-btn" data-hall-theme="neon" title="Neon">🌃 Neon</button>
+      <button type="button" class="theme-picker-btn" data-hall-theme="luxury" title="Luxury">👑 Luxury</button>
+    </div>
+  </div>
+
+  <script type="module" src="/js/test-board.js"></script>
+</body>
+</html>
