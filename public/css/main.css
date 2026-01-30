@@ -616,13 +616,13 @@ h1, h2, h3 {
 }
 
 .board-cell:nth-child(n+1):nth-child(-n+10) .cell-token-spot { transform: rotate(0deg); }
-/* Верхний ряд: карточка повёрнута 180°, ставим точку в локальный низ-лево → визуально фишка в правом верхнем углу карточки */
+/* Верхний ряд: карточка 180°, точка в низ-лево; контр-поворот 180° чтобы фишка не вверх ногами */
 .board-cell:nth-child(n+11):nth-child(-n+15) .cell-token-spot {
   top: auto;
   right: auto;
   bottom: 0;
   left: 0;
-  transform: rotate(0deg);
+  transform: rotate(180deg);
   transform-origin: bottom left;
   align-items: flex-end;
   justify-content: flex-start;
