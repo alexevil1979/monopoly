@@ -471,7 +471,4 @@ export function showCardModal(card) {
     flip.classList.add('flipped');
   }, 500);
 }
-</think>
-Исправляю ui.js: убираю async/await и лишний импорт.
 <｜tool▁calls▁begin｜><｜tool▁call▁begin｜>
-StrReplace
