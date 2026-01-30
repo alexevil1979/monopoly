@@ -1,12 +1,11 @@
 # Карточки клеток
 
-Положите сюда изображения карточек (JPG/PNG/SVG) с именами:
-- `0.svg` — Go
-- `1.svg` — Mediterranean Ave
-- `2.svg` — Community Chest
-- … по индексу клетки (0–19).
+Изображения по типу клетки: `go.png`, `street.png`, `chance.png`, `community_chest.svg`, `tax.png`, `railroad.png`, `jail.png`, `utility.png`, `free_parking.png`, `go_to_jail.png`, `default.png`.
 
-Либо по типу (используется, если нет файла по индексу):
-- `go.svg`, `street.svg`, `chance.svg`, `community_chest.svg`, `tax.svg`, `railroad.svg`, `jail.svg`, `utility.svg`, `free_parking.svg`, `go_to_jail.svg`
+Клиент использует `/images/cards/{type}.png` (для темы luxury — `{type}-luxury.jpg` для street, chance, community_chest).
 
-Клиент подставляет первый найденный: `/images/cards/{index}.svg`, затем `/images/cards/{type}.svg`.
+**Единая партия карточек:** из корня проекта выполните:
+```bash
+npm run generate-cards
+```
+Скрипт `scripts/generate-cards.js` перегенерирует все PNG в одном стиле (золотая рамка, цветная полоска сверху, фон по типу).

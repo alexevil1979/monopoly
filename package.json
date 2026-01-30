@@ -8,7 +8,8 @@
     "start": "node src/index.js",
     "dev": "node --watch src/index.js",
     "download-images": "node scripts/download-images.js",
-    "place-pics": "node scripts/place-pics.js"
+    "place-pics": "node scripts/place-pics.js",
+    "generate-cards": "node scripts/generate-cards.js"
   },
   "keywords": [
     "monopoly",
