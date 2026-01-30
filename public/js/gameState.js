@@ -27,8 +27,8 @@ export const BOARD_CELLS = [
 ];
 
 export const TOTAL_CELLS = BOARD_CELLS.length;
-/* Радиус кольца (px): карточки внутри овала, не обрезаются; при высоте 720px ≈ 320px */
-export const BOARD_RADIUS = 320;
+/* Радиус кольца (px): карточки с запасом внутри овала; при высоте 720px ≈ 299px */
+export const BOARD_RADIUS = 299;
 /** Коэффициент растяжения по X: совпадает с scaleX(.board-cells), контур овала */
 export const BOARD_STRETCH_X = 1.53;
 
