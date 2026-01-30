@@ -11,11 +11,6 @@ import {
   getPreviousPosition,
   getPreviousMoney,
   BOARD_CELLS,
-  TOTAL_CELLS,
-  BOARD_RADIUS,
-  BOARD_STRETCH_X,
-  BOARD_OFFSET_X,
-  BOARD_OFFSET_Y,
   getCardImageUrl,
 } from './gameState.js';
 import { getCellDisplay, t, tParams } from './i18n.js';
@@ -24,8 +19,6 @@ import {
   getPlayerToken,
   formatMoney,
   getInitials,
-  getCellPosition,
-  animateTokenMovement,
   animateDiceRoll,
   getDiceEmoji,
   showModal,
@@ -65,6 +58,9 @@ export function renderBoard(properties = {}) {
   const state = getState();
   if (!boardEl) return;
 
+  const currentPlayer = state?.players?.[state?.currentPlayerIndex];
+  const landedCellIndex = currentPlayer != null ? (currentPlayer.position ?? 0) : null;
+
   boardEl.innerHTML = '';
 
   BOARD_CELLS.forEach((cell) => {
@@ -78,7 +74,14 @@ export function renderBoard(properties = {}) {
     card.className = 'cell-card';
     card.dataset.type = cell.type;
     if (cell.color) card.dataset.color = cell.color;
-    if (properties[cell.index]) card.classList.add('owned');
+    const ownerId = properties[cell.index];
+    let ownerIdx = -1;
+    if (ownerId) {
+      card.classList.add('owned');
+      ownerIdx = state?.players?.findIndex((p) => p.id === ownerId) ?? -1;
+      if (ownerIdx >= 0) card.dataset.ownerIndex = String(ownerIdx);
+    }
+    if (landedCellIndex === cell.index) card.classList.add('landed');
     card.style.backgroundImage = `url(${getCardImageUrl(cell)})`;
     card.classList.add('cell-card-has-img');
 
@@ -87,6 +90,16 @@ export function renderBoard(properties = {}) {
 
     const content = document.createElement('div');
     content.className = 'cell-card-content';
+
+    if (ownerId && ownerIdx >= 0 && state?.players?.[ownerIdx]) {
+      const ownerBadge = document.createElement('div');
+      ownerBadge.className = 'cell-owner-badge';
+      ownerBadge.title = state.players[ownerIdx].name;
+      const token = getPlayerToken(ownerIdx);
+      ownerBadge.style.backgroundColor = token.color;
+      ownerBadge.textContent = getInitials(state.players[ownerIdx].name);
+      content.appendChild(ownerBadge);
+    }
 
     const display = getCellDisplay(cell.index);
     const name = document.createElement('div');
@@ -101,11 +114,16 @@ export function renderBoard(properties = {}) {
     tokens.className = 'cell-tokens';
     tokens.id = `cell-tokens-${cell.index}`;
 
+    const tokenSpot = document.createElement('div');
+    tokenSpot.className = 'cell-token-spot';
+    tokenSpot.dataset.index = cell.index;
+
     content.appendChild(name);
     if (cell.price) content.appendChild(price);
     content.appendChild(tokens);
     card.appendChild(overlay);
     card.appendChild(content);
+    card.appendChild(tokenSpot);
     cellDiv.appendChild(card);
     card.style.cursor = 'pointer';
     card.addEventListener('click', () => {
@@ -119,21 +137,21 @@ export function renderBoard(properties = {}) {
 }
 
 /**
- * Render player tokens on board
+ * Render player tokens on board — фишка ставится в центр клетки (в .cell-token-spot)
  */
 export function renderPlayerTokens() {
   const state = getState();
   if (!state?.players) return;
 
   document.querySelectorAll('.player-token').forEach((el) => el.remove());
-  const tokensLayer = document.getElementById('tokensLayer') || document.querySelector('.board-circle');
-  if (!tokensLayer) return;
 
   state.players.forEach((player, idx) => {
     if (player.bankrupt) return;
 
     const token = getPlayerToken(idx);
-    const pos = getCellPosition(player.position || 0, TOTAL_CELLS, BOARD_RADIUS);
+    const cellIndex = player.position ?? 0;
+    const tokenSpot = document.querySelector(`.cell-token-spot[data-index="${cellIndex}"]`);
+    if (!tokenSpot) return;
 
     const tokenEl = document.createElement('div');
     tokenEl.className = 'player-token';
@@ -141,17 +159,16 @@ export function renderPlayerTokens() {
     tokenEl.textContent = token.icon;
     tokenEl.style.backgroundColor = token.color;
     tokenEl.style.borderColor = token.color;
-    tokenEl.style.left = `calc(50% + ${pos.x * BOARD_STRETCH_X - BOARD_OFFSET_X}px)`;
-    tokenEl.style.top = `calc(50% + ${pos.y - BOARD_OFFSET_Y}px)`;
     tokenEl.title = player.name;
 
-    tokensLayer.appendChild(tokenEl);
-
     const prevPos = getPreviousPosition(player.id);
-    if (prevPos !== undefined && prevPos !== player.position) {
-      animateTokenMovement(tokenEl, prevPos, player.position, TOTAL_CELLS, BOARD_RADIUS, 800, BOARD_STRETCH_X, BOARD_OFFSET_X, BOARD_OFFSET_Y);
+    const sameCell = prevPos === cellIndex;
+    if (!sameCell && prevPos !== undefined) {
+      tokenEl.classList.add('token-just-moved');
     }
-    setPreviousPosition(player.id, player.position);
+
+    tokenSpot.appendChild(tokenEl);
+    setPreviousPosition(player.id, cellIndex);
   });
 }
 
@@ -396,8 +413,6 @@ export function updateGameUI(handlers = {}) {
     gameActions.appendChild(waitBtn);
   }
 
-  const currentPlayer = state.players?.[state.currentPlayerIndex];
-  const isMyTurn = currentPlayer && currentPlayer.id === getMyId();
   if (state.landedCell && state.pendingAction === 'buy' && isMyTurn) {
     showPropertyModal(state.landedCell, state.pendingBuyCell);
   }
