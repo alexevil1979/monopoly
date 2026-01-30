@@ -314,6 +314,7 @@ h1, h2, h3 {
   justify-content: center;
   min-height: 600px;
   padding: 40px;
+  overflow: hidden;
 }
 
 .board-wrapper {
@@ -321,6 +322,7 @@ h1, h2, h3 {
   width: 100%;
   max-width: 800px;
   aspect-ratio: 1;
+  overflow: hidden;
 }
 
 .board-circle {
@@ -748,12 +750,12 @@ h1, h2, h3 {
   text-align: center;
   font-size: 1.2rem;
   font-weight: 600;
-  color: var(--text-primary);
+  color: #1a1512;
   min-height: 32px;
 }
 
 .hud-status.waiting {
-  color: var(--text-secondary);
+  color: #3d322a;
 }
 
 .hud-status.your-turn {
@@ -1072,12 +1074,13 @@ h1, h2, h3 {
 .chat-header h4 {
   font-size: 0.9rem;
   font-weight: 600;
+  color: #1a1512;
 }
 
 .chat-toggle {
   background: none;
   border: none;
-  color: var(--text-primary);
+  color: #3d322a;
   cursor: pointer;
   font-size: 1.2rem;
   padding: 4px;
@@ -1089,6 +1092,7 @@ h1, h2, h3 {
   padding: 12px;
   max-height: 250px;
   font-size: 0.85rem;
+  color: #1a1512;
 }
 
 .chat-log::-webkit-scrollbar {
@@ -1104,9 +1108,10 @@ h1, h2, h3 {
   margin-bottom: 8px;
   padding: 6px 8px;
   border-radius: 8px;
-  background: var(--bg-glass);
+  background: rgba(255,255,255,0.7);
   border-left: 3px solid var(--accent-primary);
   animation: messageSlideIn 0.3s ease;
+  color: #1a1512;
 }
 
 @keyframes messageSlideIn {
@@ -1122,7 +1127,7 @@ h1, h2, h3 {
 
 .chat-message .sender {
   font-weight: 600;
-  color: var(--accent-primary);
+  color: #1e5c5c;
   margin-right: 6px;
 }
 
@@ -1140,10 +1145,14 @@ h1, h2, h3 {
   width: 100%;
   padding: 8px 12px;
   border-radius: 8px;
-  border: 1px solid var(--border-color);
-  background: var(--bg-tertiary);
-  color: var(--text-primary);
+  border: 2px solid rgba(0,0,0,0.15);
+  background: rgba(255,255,255,0.9);
+  color: #1a1512;
   font-size: 0.85rem;
+}
+
+.chat-input::placeholder {
+  color: #5c5248;
 }
 
 .chat-input:focus {
