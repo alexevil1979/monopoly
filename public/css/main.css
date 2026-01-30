@@ -495,7 +495,7 @@ h1, h2, h3 {
   box-shadow: 0 2px 6px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.12);
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   backface-visibility: hidden;
 }
 
@@ -599,7 +599,7 @@ h1, h2, h3 {
   margin-top: 1px;
 }
 
-/* Контейнер фишки — угол карточки (в локальных координатах: bottom-right = внешний правый) */
+/* Контейнер фишки — правый верхний угол; контр-поворот, чтобы фишка не была боком */
 .cell-token-spot {
   position: absolute;
   top: 0;
@@ -613,7 +613,13 @@ h1, h2, h3 {
   gap: 2px;
   pointer-events: none;
   z-index: 12;
+  transform-origin: top right;
 }
+
+.board-cell:nth-child(n+1):nth-child(-n+5) .cell-token-spot { transform: rotate(0deg); }
+.board-cell:nth-child(n+6):nth-child(-n+10) .cell-token-spot { transform: rotate(90deg); }
+.board-cell:nth-child(n+11):nth-child(-n+15) .cell-token-spot { transform: rotate(180deg); }
+.board-cell:nth-child(n+16):nth-child(-n+20) .cell-token-spot { transform: rotate(-90deg); }
 
 .cell-token-spot .player-token {
   position: relative;
