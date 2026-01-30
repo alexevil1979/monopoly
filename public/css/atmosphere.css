@@ -118,13 +118,16 @@ body[data-hall-theme=""]::before {
   content: none;
 }
 
-/* Центр доски — стекло + золотая рамка, без плоского белого овала */
+/* Центр доски — стекло + золотая рамка */
 .board-center {
-  background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 100%) !important;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: linear-gradient(145deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.06) 100%) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 2px solid var(--accent-gold);
-  box-shadow: inset 0 2px 12px rgba(0,0,0,0.25), 0 0 20px rgba(212,175,55,0.15);
+  box-shadow: 
+    inset 0 2px 16px rgba(0,0,0,0.2),
+    0 0 0 1px rgba(255,255,255,0.08),
+    0 0 24px rgba(212,175,55,0.2);
 }
 
 /* ---------- Клетки доски — карточки (с картинкой или без) ---------- */
@@ -133,11 +136,11 @@ body[data-hall-theme=""]::before {
 }
 
 .cell-card {
-  border: var(--card-vintage-border, 2px solid var(--border-color));
+  border: var(--card-vintage-border, 2px solid rgba(212,175,55,0.35));
   box-shadow: 
-    0 2px 4px rgba(0,0,0,0.15),
-    0 4px 12px rgba(0,0,0,0.1),
-    inset 0 1px 0 rgba(255,255,255,0.1) !important;
+    0 2px 8px rgba(0,0,0,0.2),
+    0 4px 16px rgba(0,0,0,0.12),
+    inset 0 1px 0 rgba(255,255,255,0.12) !important;
   border-radius: 10px;
   position: relative;
 }

@@ -332,6 +332,10 @@ h1, h2, h3 {
   aspect-ratio: 1;
   overflow: hidden;
   border-radius: 50%;
+  box-shadow: 
+    inset 0 0 0 3px rgba(212,175,55,0.2),
+    0 8px 32px rgba(0,0,0,0.4),
+    0 0 0 1px rgba(0,0,0,0.15);
 }
 
 .board-circle {
@@ -364,12 +368,12 @@ h1, h2, h3 {
 .board-center h3,
 .board-logo {
   font-family: var(--font-heading), serif;
-  font-size: clamp(1rem, 3vw, 1.8rem);
+  font-size: clamp(1.1rem, 3.2vw, 2rem);
   font-weight: 700;
   text-align: center;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   color: var(--accent-gold);
-  text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+  text-shadow: 0 0 24px rgba(212,175,55,0.35), 0 2px 4px rgba(0,0,0,0.3);
 }
 
 .board-logo {
@@ -390,9 +394,9 @@ h1, h2, h3 {
   height: 100%;
 }
 
-/* Радиус кольца карточек — по зелёному кругу стола (все карточки внутри) */
+/* Радиус кольца карточек — все 20 карточек внутри круга, без обрезки */
 .board-cells {
-  --ring: 360%;
+  --ring: 320%;
 }
 
 .board-cell {
@@ -435,14 +439,14 @@ h1, h2, h3 {
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 10px;
-  border: var(--card-vintage-border, 2px solid var(--border-color));
+  border: 2px solid rgba(212,175,55,0.35);
   padding: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  box-shadow: var(--shadow-sm);
-  transition: all var(--transition-normal);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
   position: relative;
   overflow: hidden;
 }
@@ -461,7 +465,7 @@ h1, h2, h3 {
 .cell-card-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 40%, transparent 100%);
+  background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.3) 45%, transparent 100%);
   border-radius: inherit;
   pointer-events: none;
 }
@@ -470,7 +474,7 @@ h1, h2, h3 {
   position: relative;
   z-index: 2;
   width: 100%;
-  padding: 4px 6px 20px;
+  padding: 6px 8px 18px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -478,10 +482,21 @@ h1, h2, h3 {
 }
 
 .cell-card:hover {
-  transform: scale(1.1);
+  transform: scale(1.08);
   z-index: 20;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-lg), 0 0 16px rgba(212,175,55,0.25);
   border-color: var(--accent-gold);
+}
+
+/* Карточки без картинки — тёмный текст на светлом фоне */
+.cell-card:not(.cell-card-has-img) .cell-name {
+  color: #1a1512;
+  text-shadow: 0 1px 1px rgba(255,255,255,0.5);
+}
+
+.cell-card:not(.cell-card-has-img) .cell-price {
+  color: #2d4a35;
+  text-shadow: none;
 }
 
 .cell-card.owned::after {
@@ -495,21 +510,21 @@ h1, h2, h3 {
 }
 
 .cell-name {
-  font-size: clamp(10px, 2.2vw, 14px);
+  font-size: clamp(11px, 2.4vw, 15px);
   font-weight: 700;
   text-align: center;
-  line-height: 1.2;
+  line-height: 1.25;
   margin-bottom: 2px;
   word-break: break-word;
   color: #fff;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.9), 0 0 8px rgba(0,0,0,0.8);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.95), 0 2px 6px rgba(0,0,0,0.8), 0 0 12px rgba(0,0,0,0.5);
 }
 
 .cell-price {
-  font-size: clamp(9px, 1.8vw, 12px);
-  color: var(--accent-gold);
-  font-weight: 700;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.9), 0 0 6px rgba(0,0,0,0.6);
+  font-size: clamp(10px, 2vw, 13px);
+  color: #f5e6a8;
+  font-weight: 800;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.95), 0 0 10px rgba(212,175,55,0.4);
 }
 
 .cell-tokens {
