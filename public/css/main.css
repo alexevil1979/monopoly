@@ -323,6 +323,7 @@ h1, h2, h3 {
   max-width: 800px;
   aspect-ratio: 1;
   overflow: hidden;
+  border-radius: 50%;
 }
 
 .board-circle {
@@ -381,37 +382,42 @@ h1, h2, h3 {
   height: 100%;
 }
 
+/* Радиус кольца карточек — по зелёному кругу стола (все карточки внутри) */
+.board-cells {
+  --ring: 360%;
+}
+
 .board-cell {
   position: absolute;
   width: 12%;
   height: 12%;
-  transform-origin: 50% 400%;
+  transform-origin: 50% var(--ring);
   transition: all var(--transition-normal);
   cursor: pointer;
   top: 50%;
   left: 50%;
 }
 
-.board-cell:nth-child(1) { transform: rotate(0deg) translateY(-400%) rotate(0deg); }
-.board-cell:nth-child(2) { transform: rotate(18deg) translateY(-400%) rotate(-18deg); }
-.board-cell:nth-child(3) { transform: rotate(36deg) translateY(-400%) rotate(-36deg); }
-.board-cell:nth-child(4) { transform: rotate(54deg) translateY(-400%) rotate(-54deg); }
-.board-cell:nth-child(5) { transform: rotate(72deg) translateY(-400%) rotate(-72deg); }
-.board-cell:nth-child(6) { transform: rotate(90deg) translateY(-400%) rotate(-90deg); }
-.board-cell:nth-child(7) { transform: rotate(108deg) translateY(-400%) rotate(-108deg); }
-.board-cell:nth-child(8) { transform: rotate(126deg) translateY(-400%) rotate(-126deg); }
-.board-cell:nth-child(9) { transform: rotate(144deg) translateY(-400%) rotate(-144deg); }
-.board-cell:nth-child(10) { transform: rotate(162deg) translateY(-400%) rotate(-162deg); }
-.board-cell:nth-child(11) { transform: rotate(180deg) translateY(-400%) rotate(-180deg); }
-.board-cell:nth-child(12) { transform: rotate(198deg) translateY(-400%) rotate(-198deg); }
-.board-cell:nth-child(13) { transform: rotate(216deg) translateY(-400%) rotate(-216deg); }
-.board-cell:nth-child(14) { transform: rotate(234deg) translateY(-400%) rotate(-234deg); }
-.board-cell:nth-child(15) { transform: rotate(252deg) translateY(-400%) rotate(-252deg); }
-.board-cell:nth-child(16) { transform: rotate(270deg) translateY(-400%) rotate(-270deg); }
-.board-cell:nth-child(17) { transform: rotate(288deg) translateY(-400%) rotate(-288deg); }
-.board-cell:nth-child(18) { transform: rotate(306deg) translateY(-400%) rotate(-306deg); }
-.board-cell:nth-child(19) { transform: rotate(324deg) translateY(-400%) rotate(-324deg); }
-.board-cell:nth-child(20) { transform: rotate(342deg) translateY(-400%) rotate(-342deg); }
+.board-cell:nth-child(1) { transform: rotate(0deg) translateY(calc(-1 * var(--ring))) rotate(0deg); }
+.board-cell:nth-child(2) { transform: rotate(18deg) translateY(calc(-1 * var(--ring))) rotate(-18deg); }
+.board-cell:nth-child(3) { transform: rotate(36deg) translateY(calc(-1 * var(--ring))) rotate(-36deg); }
+.board-cell:nth-child(4) { transform: rotate(54deg) translateY(calc(-1 * var(--ring))) rotate(-54deg); }
+.board-cell:nth-child(5) { transform: rotate(72deg) translateY(calc(-1 * var(--ring))) rotate(-72deg); }
+.board-cell:nth-child(6) { transform: rotate(90deg) translateY(calc(-1 * var(--ring))) rotate(-90deg); }
+.board-cell:nth-child(7) { transform: rotate(108deg) translateY(calc(-1 * var(--ring))) rotate(-108deg); }
+.board-cell:nth-child(8) { transform: rotate(126deg) translateY(calc(-1 * var(--ring))) rotate(-126deg); }
+.board-cell:nth-child(9) { transform: rotate(144deg) translateY(calc(-1 * var(--ring))) rotate(-144deg); }
+.board-cell:nth-child(10) { transform: rotate(162deg) translateY(calc(-1 * var(--ring))) rotate(-162deg); }
+.board-cell:nth-child(11) { transform: rotate(180deg) translateY(calc(-1 * var(--ring))) rotate(-180deg); }
+.board-cell:nth-child(12) { transform: rotate(198deg) translateY(calc(-1 * var(--ring))) rotate(-198deg); }
+.board-cell:nth-child(13) { transform: rotate(216deg) translateY(calc(-1 * var(--ring))) rotate(-216deg); }
+.board-cell:nth-child(14) { transform: rotate(234deg) translateY(calc(-1 * var(--ring))) rotate(-234deg); }
+.board-cell:nth-child(15) { transform: rotate(252deg) translateY(calc(-1 * var(--ring))) rotate(-252deg); }
+.board-cell:nth-child(16) { transform: rotate(270deg) translateY(calc(-1 * var(--ring))) rotate(-270deg); }
+.board-cell:nth-child(17) { transform: rotate(288deg) translateY(calc(-1 * var(--ring))) rotate(-288deg); }
+.board-cell:nth-child(18) { transform: rotate(306deg) translateY(calc(-1 * var(--ring))) rotate(-306deg); }
+.board-cell:nth-child(19) { transform: rotate(324deg) translateY(calc(-1 * var(--ring))) rotate(-324deg); }
+.board-cell:nth-child(20) { transform: rotate(342deg) translateY(calc(-1 * var(--ring))) rotate(-342deg); }
 
 .cell-card {
   width: 100%;

@@ -85,15 +85,18 @@ body[data-hall-theme=""]::before {
   z-index: 1;
 }
 
-/* ---------- Игровой стол — без белого овала, стол как фон области ---------- */
+/* ---------- Игровой стол: зелёный круг — на wrapper, карточки по кругу ---------- */
 .board-container {
   position: relative;
-  background: url('/images/table/surface.jpg') center/cover no-repeat;
   background-color: var(--bg-secondary);
-  border-radius: 24px;
 }
 
-[data-hall-theme="luxury"] .board-container {
+.board-wrapper {
+  background: url('/images/table/surface.jpg') center/cover no-repeat;
+  background-color: var(--bg-tertiary);
+}
+
+[data-hall-theme="luxury"] .board-wrapper {
   background-image: url('/images/table/surface-luxury.jpg');
   filter: brightness(0.95);
 }
