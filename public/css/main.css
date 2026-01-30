@@ -844,7 +844,7 @@ h1, h2, h3 {
 .game-hud {
   grid-area: hud;
   flex-shrink: 0;
-  background: var(--bg-glass);
+  background: rgba(252, 250, 246, 0.96);
   backdrop-filter: blur(20px);
   border-radius: 16px;
   padding: 16px 20px;
@@ -859,9 +859,9 @@ h1, h2, h3 {
   text-align: center;
   font-size: 1.2rem;
   font-weight: 600;
-  color: #0f0e0c;
+  color: #1a1512;
   min-height: 32px;
-  text-shadow: 0 1px 1px rgba(255,255,255,0.5);
+  text-shadow: 0 1px 2px rgba(255,255,255,0.8);
 }
 
 .hud-status.waiting {
