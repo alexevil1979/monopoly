@@ -1160,11 +1160,26 @@ h1, h2, h3 {
 }
 
 .card-flip-back {
-  background: var(--bg-card);
-  color: var(--text-primary);
+  background: #f5efe6;
+  color: #1a1512;
   transform: rotateY(180deg);
   flex-direction: column;
   gap: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+.card-flip-back h3,
+.card-flip-back p {
+  color: #1a1512;
+  text-align: center;
+}
+.card-flip-back h3 {
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+.card-flip-back p {
+  font-size: 1.05rem;
+  line-height: 1.5;
+  max-width: 320px;
 }
 
 /* ============================================
