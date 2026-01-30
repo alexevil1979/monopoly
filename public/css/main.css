@@ -322,20 +322,31 @@ h1, h2, h3 {
   min-height: 0;
   padding: 16px;
   overflow: hidden;
+  container-type: size;
+  container-name: board;
 }
 
 .board-wrapper {
   position: relative;
-  width: 100%;
-  max-width: min(800px, 100%);
-  max-height: 100%;
-  aspect-ratio: 1;
+  width: min(100cqw, 100cqh, 800px);
+  height: min(100cqw, 100cqh, 800px);
+  flex-shrink: 0;
   overflow: hidden;
   border-radius: 50%;
   box-shadow: 
     inset 0 0 0 2px rgba(212,175,55,0.25),
     0 10px 40px rgba(0,0,0,0.35),
     0 0 0 1px rgba(0,0,0,0.12);
+}
+
+@supports not (container-type: size) {
+  .board-wrapper {
+    width: 100%;
+    height: auto;
+    max-width: min(800px, 100%);
+    max-height: 100%;
+    aspect-ratio: 1;
+  }
 }
 
 .board-circle {
@@ -394,20 +405,21 @@ h1, h2, h3 {
   height: 100%;
 }
 
-/* Радиус кольца — карточки строго на зелёном круге, с отступом от золотой рамки */
+/* Радиус кольца — карточки на зелёном круге без перекрытий (20 × 10% по дуге) */
 .board-cells {
-  --ring: 280%;
+  --ring: 336%;
 }
 
 .board-cell {
   position: absolute;
-  width: 12%;
-  height: 12%;
+  width: 10%;
+  height: 10%;
   transform-origin: 50% var(--ring);
-  transition: all var(--transition-normal);
+  transition: transform var(--transition-normal), filter var(--transition-normal);
   cursor: pointer;
   top: 50%;
   left: 50%;
+  will-change: transform;
 }
 
 .board-cell:nth-child(1) { transform: rotate(0deg) translateY(calc(-1 * var(--ring))) rotate(0deg); }
@@ -438,17 +450,18 @@ h1, h2, h3 {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  border-radius: 10px;
-  border: 2px solid rgba(212,175,55,0.35);
+  border-radius: 8px;
+  border: 1px solid rgba(212,175,55,0.4);
   padding: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.1);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.12);
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
   position: relative;
   overflow: hidden;
+  backface-visibility: hidden;
 }
 
 .cell-card::before {
@@ -457,7 +470,7 @@ h1, h2, h3 {
   top: 0;
   left: 0;
   right: 0;
-  height: 5px;
+  height: 4px;
   background: var(--cell-color, var(--accent-primary));
   z-index: 1;
 }
@@ -474,7 +487,7 @@ h1, h2, h3 {
   position: relative;
   z-index: 2;
   width: 100%;
-  padding: 6px 8px 18px;
+  padding: 4px 6px 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -482,9 +495,9 @@ h1, h2, h3 {
 }
 
 .cell-card:hover {
-  transform: scale(1.08);
+  transform: scale(1.06);
   z-index: 20;
-  box-shadow: var(--shadow-lg), 0 0 16px rgba(212,175,55,0.25);
+  box-shadow: var(--shadow-lg), 0 0 14px rgba(212,175,55,0.3);
   border-color: var(--accent-gold);
 }
 
@@ -502,52 +515,52 @@ h1, h2, h3 {
 .cell-card.owned::after {
   content: '🏠';
   position: absolute;
-  bottom: 4px;
-  right: 4px;
-  font-size: 14px;
+  bottom: 2px;
+  right: 2px;
+  font-size: 11px;
   z-index: 3;
   filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8));
 }
 
 .cell-name {
-  font-size: clamp(11px, 2.4vw, 15px);
+  font-size: clamp(10px, 2.2vw, 14px);
   font-weight: 700;
   text-align: center;
-  line-height: 1.25;
-  margin-bottom: 2px;
+  line-height: 1.2;
+  margin-bottom: 1px;
   word-break: break-word;
   color: #fff;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.95), 0 2px 6px rgba(0,0,0,0.8), 0 0 12px rgba(0,0,0,0.5);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.95), 0 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.4);
 }
 
 .cell-price {
-  font-size: clamp(10px, 2vw, 13px);
+  font-size: clamp(9px, 1.8vw, 12px);
   color: #f5e6a8;
   font-weight: 800;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.95), 0 0 10px rgba(212,175,55,0.4);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.95), 0 0 8px rgba(212,175,55,0.4);
 }
 
 .cell-tokens {
   position: absolute;
-  bottom: 4px;
+  bottom: 2px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 2px;
+  gap: 1px;
   flex-wrap: wrap;
   justify-content: center;
-  max-width: 80%;
+  max-width: 85%;
 }
 
 .cell-token {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 8px;
+  font-size: 7px;
 }
 
 /* Cell type colors */

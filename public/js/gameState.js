@@ -27,7 +27,7 @@ export const BOARD_CELLS = [
 ];
 
 export const TOTAL_CELLS = BOARD_CELLS.length;
-/* Радиус кольца карточек (px) — совпадает с CSS --ring: 280% при ширине доски ~800px */
+/* Радиус кольца карточек (px) — совпадает с CSS --ring: 336% при размере клетки 10% и доске ~800px */
 export const BOARD_RADIUS = 269;
 
 let state = null;
