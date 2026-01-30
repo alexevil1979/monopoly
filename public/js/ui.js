@@ -439,27 +439,27 @@ export function showPropertyModal(cell, buyInfo) {
   }
   if (cell.type === 'tax' && cell.amount) {
     content.innerHTML += `
-      <div style="margin-top: 8px; font-size: 0.9rem; color: var(--text-secondary);">
+      <div class="card-modal-hint" style="margin-top: 8px;">
         Pay $200 or 10% of total assets.
       </div>
     `;
   }
   if (cell.type === 'utility') {
     content.innerHTML += `
-      <div style="margin-top: 8px; font-size: 0.9rem; color: var(--text-secondary);">
+      <div class="card-modal-hint" style="margin-top: 8px;">
         Rent: 4× dice (one utility) or 10× (both).
       </div>
     `;
   }
   if (cell.type === 'railroad') {
     content.innerHTML += `
-      <div style="margin-top: 8px; font-size: 0.9rem; color: var(--text-secondary);">
+      <div class="card-modal-hint" style="margin-top: 8px;">
         Rent: $25 / $50 / $100 / $200 (by number of railroads owned).
       </div>
     `;
   }
   if (!content.innerHTML.trim()) {
-    content.innerHTML = `<p style="color: var(--text-muted); margin: 0;">${t('no_purchase')}</p>`;
+    content.innerHTML = `<p class="card-modal-hint" style="margin: 0;">${t('no_purchase')}</p>`;
   }
 
   showModal('propertyModal');

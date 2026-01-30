@@ -1077,14 +1077,22 @@ h1, h2, h3 {
 }
 
 .card-modal-details {
-  background: var(--bg-tertiary);
+  background: #252019;
   padding: 16px;
   border-radius: 12px;
-  color: #1a1512;
+  color: #f2ede6;
+  border: 1px solid rgba(212, 175, 55, 0.25);
 }
-.card-modal-details span,
+.card-modal-details span {
+  color: #e8e4dc;
+  font-weight: 500;
+}
 .card-modal-details strong {
-  color: inherit;
+  color: #ffd966;
+}
+.card-modal-details .card-modal-hint {
+  color: #d0ccc4;
+  font-size: 0.9rem;
 }
 
 .modal-header {
