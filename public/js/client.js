@@ -73,11 +73,36 @@ function getActionHandlers() {
   };
 }
 
+const ROOM_STORAGE_KEY = 'monopolyRoomCode';
+const NAME_STORAGE_KEY = 'monopolyPlayerName';
+
+function saveRoomToStorage(state) {
+  if (!state?.code || !state?.players) return;
+  const me = state.players.find((p) => p.id === getMyId());
+  if (me?.name) {
+    try {
+      localStorage.setItem(ROOM_STORAGE_KEY, state.code);
+      localStorage.setItem(NAME_STORAGE_KEY, me.name);
+    } catch (_) {}
+  }
+}
+
+function clearRoomFromStorage() {
+  try {
+    localStorage.removeItem(ROOM_STORAGE_KEY);
+    localStorage.removeItem(NAME_STORAGE_KEY);
+  } catch (_) {}
+}
+
 function applyState(newState) {
   const oldPhase = getState()?.phase;
   setState(newState);
   const state = getState();
   if (!state) return;
+
+  if (state.phase === 'lobby' || state.phase === 'playing' || state.phase === 'finished') {
+    saveRoomToStorage(state);
+  }
 
   if (state.phase === 'lobby') {
     showScreen(roomScreen);
@@ -214,6 +239,24 @@ if (socket) {
     if (getState()?.code) {
       socket.emit('sync_state', null, (res) => {
         if (res?.ok && res.state) applyState(res.state);
+      });
+      return;
+    }
+
+    const savedCode = localStorage.getItem(ROOM_STORAGE_KEY);
+    const savedName = localStorage.getItem(NAME_STORAGE_KEY);
+    if (savedCode && savedName) {
+      const code = String(savedCode).trim().toUpperCase().slice(0, 6);
+      showLoading(true);
+      socket.emit('join_room', { code, name: String(savedName).trim() || 'Player' }, (res) => {
+        showLoading(false);
+        if (res?.ok && res.state) {
+          applyState(res.state);
+          showToast(t('rejoined_room'), 'success');
+        } else {
+          clearRoomFromStorage();
+          if (res?.error) showToast(res.error, 'warning');
+        }
       });
     }
   });

@@ -132,6 +132,7 @@ const translations = {
     error_enter_code: 'Enter room code',
     click_to_copy: 'Click to copy',
     copied: 'Copied!',
+    rejoined_room: 'Back in room',
     cells: [
       { name: 'Go', description: 'Collect $200 salary as you pass. Start of the board.' },
       { name: 'Mediterranean Ave', description: 'Brown set. Lowest rent. Build houses and hotel.' },
@@ -207,6 +208,7 @@ const translations = {
     error_enter_code: 'Введите код комнаты',
     click_to_copy: 'Нажмите, чтобы скопировать',
     copied: 'Скопировано!',
+    rejoined_room: 'Снова в комнате',
     cells: [
       { name: 'Старт', description: 'Получите $200 при проходе. Начало доски.' },
       { name: 'Средиземноморская', description: 'Коричневая группа. Низкая аренда.' },
@@ -282,6 +284,7 @@ const translations = {
     error_enter_code: '请输入房间代码',
     click_to_copy: '点击复制',
     copied: '已复制！',
+    rejoined_room: '已回到房间',
     cells: [
       { name: '起点', description: '经过时获得 $200。棋盘起点。' },
       { name: '地中海大道', description: '棕色组。最低租金。' },
@@ -357,6 +360,7 @@ const translations = {
     error_enter_code: 'कमरे का कोड दर्ज करें',
     click_to_copy: 'कॉपी करने के लिए क्लिक करें',
     copied: 'कॉपी हो गया!',
+    rejoined_room: 'कमरे में वापस',
     cells: [
       { name: 'स्टार्ट', description: 'गुजरने पर $200 लें।' },
       { name: 'मेडिटेरेनियन एवेन्यू', description: 'भूरा सेट। कम किराया।' },
@@ -432,6 +436,7 @@ const translations = {
     error_enter_code: 'أدخل رمز الغرفة',
     click_to_copy: 'انقر للنسخ',
     copied: 'تم النسخ!',
+    rejoined_room: 'عدت إلى الغرفة',
     cells: [
       { name: 'الانطلاق', description: 'احصل على $200 عند المرور.' },
       { name: 'المتوسطية', description: 'المجموعة البنية.' },
