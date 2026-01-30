@@ -13,7 +13,7 @@ import {
   BOARD_CELLS,
   getCardImageUrl,
 } from './gameState.js';
-import { getCellDisplay, t, tParams } from './i18n.js';
+import { getCellDisplay, getCardText, t, tParams } from './i18n.js';
 import {
   TOKEN_COLORS,
   getPlayerToken,
@@ -314,7 +314,7 @@ export function updateGameUI(handlers = {}) {
     statusText = tParams('landed_on', { name: landedDisplay.name });
     statusClass = '';
   } else if (state.drawnCard) {
-    statusText = `Card: ${state.drawnCard.text}`;
+    statusText = `${t('card_label')}: ${getCardText(state.drawnCard.id, state.drawnCard.text || '')}`;
     statusClass = '';
   } else if (isMyTurn) {
     statusText = t('your_turn');
@@ -447,14 +447,14 @@ export function showPropertyModal(cell, buyInfo) {
     img.alt = cell.name;
   }
   if (desc) {
-    desc.textContent = cell.description || (cell.type === 'street' ? 'Property. Buy to collect rent.' : cell.type);
+    desc.textContent = display.description || (cell.type === 'street' ? t('property') : cell.type);
   }
   content.innerHTML = '';
   if (buyInfo && (buyInfo.price || buyInfo.amount)) {
     const price = buyInfo.price ?? buyInfo.amount ?? 0;
     content.innerHTML += `
       <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-        <span>Price:</span>
+        <span>${t('price')}:</span>
         <strong style="color: var(--accent-gold);">${formatMoney(price)}</strong>
       </div>
     `;
@@ -478,21 +478,21 @@ export function showPropertyModal(cell, buyInfo) {
   if (cell.type === 'tax' && cell.amount) {
     content.innerHTML += `
       <div class="card-modal-hint" style="margin-top: 8px;">
-        Pay $200 or 10% of total assets.
+        ${t('tax_modal_hint')}
       </div>
     `;
   }
   if (cell.type === 'utility') {
     content.innerHTML += `
       <div class="card-modal-hint" style="margin-top: 8px;">
-        Rent: 4× dice (one utility) or 10× (both).
+        ${t('utility_modal_hint')}
       </div>
     `;
   }
   if (cell.type === 'railroad') {
     content.innerHTML += `
       <div class="card-modal-hint" style="margin-top: 8px;">
-        Rent: $25 / $50 / $100 / $200 (by number of railroads owned).
+        ${t('railroad_modal_hint')}
       </div>
     `;
   }
