@@ -499,6 +499,23 @@ h1, h2, h3 {
   backface-visibility: hidden;
 }
 
+/* Слой фона карточки — для верхнего ряда контр-поворачиваем, чтобы картинка не вверх ногами */
+.cell-card-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: inherit;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.board-cell:nth-child(n+11):nth-child(-n+15) .cell-card-bg {
+  transform: rotate(180deg);
+  transform-origin: center center;
+}
+
 .cell-card::before {
   content: '';
   position: absolute;

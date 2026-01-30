@@ -29,7 +29,11 @@ function renderBoard() {
     card.className = 'cell-card cell-card-has-img';
     card.dataset.type = cell.type;
     if (cell.color) card.dataset.color = cell.color;
-    card.style.backgroundImage = `url(${getCardImageUrl(cell)})`;
+
+    const cardBg = document.createElement('div');
+    cardBg.className = 'cell-card-bg';
+    cardBg.style.backgroundImage = `url(${getCardImageUrl(cell)})`;
+    card.appendChild(cardBg);
 
     const overlay = document.createElement('div');
     overlay.className = 'cell-card-overlay';

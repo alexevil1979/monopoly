@@ -82,8 +82,12 @@ export function renderBoard(properties = {}) {
       if (ownerIdx >= 0) card.dataset.ownerIndex = String(ownerIdx);
     }
     if (landedCellIndex === cell.index) card.classList.add('landed');
-    card.style.backgroundImage = `url(${getCardImageUrl(cell)})`;
     card.classList.add('cell-card-has-img');
+
+    const cardBg = document.createElement('div');
+    cardBg.className = 'cell-card-bg';
+    cardBg.style.backgroundImage = `url(${getCardImageUrl(cell)})`;
+    card.appendChild(cardBg);
 
     const overlay = document.createElement('div');
     overlay.className = 'cell-card-overlay';
