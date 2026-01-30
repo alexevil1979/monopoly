@@ -242,6 +242,22 @@ h1, h2, h3 {
   box-shadow: var(--shadow-sm);
 }
 
+.room-code-copy {
+  cursor: pointer;
+  user-select: none;
+  border-radius: 8px;
+  padding: 4px 8px;
+  margin: -4px -8px;
+  transition: background var(--transition-fast), opacity var(--transition-fast);
+}
+.room-code-copy:hover {
+  background: rgba(212, 175, 55, 0.15);
+  opacity: 0.95;
+}
+.room-code-copy:active {
+  opacity: 0.9;
+}
+
 #roomCode {
   font-family: 'Courier New', monospace;
   font-size: 1.5rem;

@@ -129,6 +129,35 @@ function setHallTheme(theme) {
   });
 })();
 
+function copyRoomCodeToClipboard() {
+  const code = roomCodeEl?.textContent?.trim();
+  if (!code) return;
+  if (navigator.clipboard?.writeText) {
+    navigator.clipboard.writeText(code).then(() => showToast(t('copied'), 'success')).catch(() => {});
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = code;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand('copy');
+      showToast(t('copied'), 'success');
+    } catch (_) {}
+    document.body.removeChild(ta);
+    ta.remove();
+  }
+}
+
+roomCodeEl?.addEventListener('click', copyRoomCodeToClipboard);
+roomCodeEl?.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    copyRoomCodeToClipboard();
+  }
+});
+
 window.__onLangChange = () => {
   const state = getState();
   if (state?.phase === 'lobby') {
