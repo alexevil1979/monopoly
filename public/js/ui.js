@@ -14,6 +14,8 @@ import {
   TOTAL_CELLS,
   BOARD_RADIUS,
   BOARD_STRETCH_X,
+  BOARD_OFFSET_X,
+  BOARD_OFFSET_Y,
   getCardImageUrl,
 } from './gameState.js';
 import {
@@ -133,15 +135,15 @@ export function renderPlayerTokens() {
     tokenEl.textContent = token.icon;
     tokenEl.style.backgroundColor = token.color;
     tokenEl.style.borderColor = token.color;
-    tokenEl.style.left = `calc(50% + ${pos.x * BOARD_STRETCH_X}px)`;
-    tokenEl.style.top = `calc(50% + ${pos.y}px)`;
+    tokenEl.style.left = `calc(50% + ${pos.x * BOARD_STRETCH_X - BOARD_OFFSET_X}px)`;
+    tokenEl.style.top = `calc(50% + ${pos.y - BOARD_OFFSET_Y}px)`;
     tokenEl.title = player.name;
 
     boardCircle.appendChild(tokenEl);
 
     const prevPos = getPreviousPosition(player.id);
     if (prevPos !== undefined && prevPos !== player.position) {
-      animateTokenMovement(tokenEl, prevPos, player.position, TOTAL_CELLS, BOARD_RADIUS, 800, BOARD_STRETCH_X);
+      animateTokenMovement(tokenEl, prevPos, player.position, TOTAL_CELLS, BOARD_RADIUS, 800, BOARD_STRETCH_X, BOARD_OFFSET_X, BOARD_OFFSET_Y);
     }
     setPreviousPosition(player.id, player.position);
   });

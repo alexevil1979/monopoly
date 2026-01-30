@@ -140,9 +140,9 @@ export function getCellPosition(index, totalCells, radius) {
 }
 
 /**
- * Animate token movement (stretchX — для овальной доски, совпадает с scaleX кольца карточек)
+ * Animate token movement (stretchX, offsetX, offsetY — для овальной доски и сдвига кольца)
  */
-export function animateTokenMovement(tokenElement, fromIndex, toIndex, totalCells, radius, duration = 800, stretchX = 1) {
+export function animateTokenMovement(tokenElement, fromIndex, toIndex, totalCells, radius, duration = 800, stretchX = 1, offsetX = 0, offsetY = 0) {
   if (!tokenElement) return;
 
   const steps = Math.abs(toIndex - fromIndex);
@@ -151,8 +151,11 @@ export function animateTokenMovement(tokenElement, fromIndex, toIndex, totalCell
   const fromPos = getCellPosition(fromIndex, totalCells, radius);
   const toPos = getCellPosition(toIndex, totalCells, radius);
 
+  const x = toPos.x * stretchX - offsetX;
+  const y = toPos.y - offsetY;
+
   tokenElement.style.transition = `all ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)`;
-  tokenElement.style.transform = `translate(calc(-50% + ${toPos.x * stretchX}px), calc(-50% + ${toPos.y}px))`;
+  tokenElement.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
 
   // Add bounce effect at the end
   setTimeout(() => {
