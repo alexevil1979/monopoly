@@ -71,6 +71,14 @@ export function renderBoard(properties = {}) {
     card.dataset.type = cell.type;
     if (cell.color) card.dataset.color = cell.color;
     if (properties[cell.index]) card.classList.add('owned');
+    card.style.backgroundImage = `url(${getCardImageUrl(cell)})`;
+    card.classList.add('cell-card-has-img');
+
+    const overlay = document.createElement('div');
+    overlay.className = 'cell-card-overlay';
+
+    const content = document.createElement('div');
+    content.className = 'cell-card-content';
 
     const name = document.createElement('div');
     name.className = 'cell-name';
@@ -84,9 +92,11 @@ export function renderBoard(properties = {}) {
     tokens.className = 'cell-tokens';
     tokens.id = `cell-tokens-${cell.index}`;
 
-    card.appendChild(name);
-    if (cell.price) card.appendChild(price);
-    card.appendChild(tokens);
+    content.appendChild(name);
+    if (cell.price) content.appendChild(price);
+    content.appendChild(tokens);
+    card.appendChild(overlay);
+    card.appendChild(content);
     cellDiv.appendChild(card);
     card.style.cursor = 'pointer';
     card.addEventListener('click', () => {
@@ -380,13 +390,12 @@ export function showPropertyModal(cell, buyInfo) {
 
   title.textContent = cell.name;
   if (img) {
-    img.src = getCardImageUrl(cell, 'png');
+    img.src = getCardImageUrl(cell);
     img.onerror = function () {
-      this.onerror = function () {
-        this.onerror = null;
-        this.src = getCardImageUrl(cell, 'svg');
-      };
-      this.src = getCardImageUrl(cell, 'jpg');
+      const type = (cell && cell.type) ? cell.type : 'default';
+      const known = ['go', 'street', 'chance', 'community_chest', 'tax', 'railroad', 'jail', 'utility', 'free_parking', 'go_to_jail'];
+      const file = known.includes(type) ? type : 'default';
+      this.src = `/images/cards/${file}.svg`;
     };
     img.alt = cell.name;
   }

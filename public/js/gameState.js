@@ -66,15 +66,15 @@ export function setPreviousMoney(playerId, money) {
   previousPlayerMoney[playerId] = money;
 }
 
-/** URL карточки клетки; для темы luxury — luxury-карточки, если есть */
-export function getCardImageUrl(cell, ext = 'jpg') {
+/** URL карточки клетки; для темы luxury — luxury .jpg, иначе .png */
+export function getCardImageUrl(cell) {
   const type = (cell && cell.type) ? cell.type : 'default';
   const known = ['go', 'street', 'chance', 'community_chest', 'tax', 'railroad', 'jail', 'utility', 'free_parking', 'go_to_jail'];
   const file = known.includes(type) ? type : 'default';
   const theme = typeof document !== 'undefined' && document.body && document.body.getAttribute('data-hall-theme');
   const luxuryCards = ['street', 'chance', 'community_chest'];
   if (theme === 'luxury' && luxuryCards.includes(file)) {
-    return `/images/cards/${file}-luxury.${ext}`;
+    return `/images/cards/${file}-luxury.jpg`;
   }
-  return `/images/cards/${file}.${ext}`;
+  return `/images/cards/${file}.png`;
 }
