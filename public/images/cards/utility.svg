@@ -18,5 +18,5 @@
   <rect x="275" y="285" width="50" height="8" fill="#4e342e" rx="2"/>
   <path d="M300 140 L300 100 M270 165 L240 135 M330 165 L360 135 M270 235 L240 265 M330 235 L360 265" stroke="#e8b923" stroke-width="2" opacity="0.6"/>
   <text x="300" y="345" text-anchor="middle" font-size="18" fill="rgba(255,255,255,0.95)">Electric or Water</text>
-  <text x="300" y="375" text-anchor="middle" font-size="16" fill="rgba(255,255,255,0.85)">Rent × dice roll</text>
+  <text x="300" y="375" text-anchor="middle" font-size="16" fill="rgba(255,255,255,0.85)">Rent ï¿½ dice roll</text>
 </svg>

@@ -19,14 +19,25 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, '..', 'public')));
+const publicDir = path.join(__dirname, '..', 'public');
+app.use(express.static(publicDir));
+
+// Favicon: avoid 404 (browser often requests /favicon.ico)
+app.get('/favicon.ico', (req, res) => {
+  res.status(204).end();
+});
 
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', ts: new Date().toISOString() });
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
+  res.sendFile(path.join(publicDir, 'index.html'));
+});
+
+// 404: plain text only, so /js/* never gets HTML (avoids "Unexpected token '<'" when a script URL returns index.html)
+app.use((req, res) => {
+  res.status(404).type('text/plain').send('Not Found');
 });
 
 const httpServer = createServer(app);

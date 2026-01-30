@@ -3,14 +3,15 @@
  * Entry point: Socket.IO, applyState, lobby/game handlers. UI and state in ui.js / gameState.js.
  */
 
-import { getState, setState, setMyId, getMyId } from './gameState.js';
+// ?v=3 — cache-busting после обрезки мусора в ui.js
+import { getState, setState, setMyId, getMyId } from './gameState.js?v=3';
 import {
   showScreen,
   renderBoard,
   renderPlayerTokens,
   renderPlayers,
   updateGameUI,
-} from './ui.js';
+} from './ui.js?v=3';
 import {
   formatMoney,
   showLoading,
@@ -21,7 +22,7 @@ import {
   setupModalClose,
   createConfetti,
   shakeElement,
-} from './utils.js';
+} from './utils.js?v=3';
 
 const socket = window.io
   ? window.io(window.location.origin, {
@@ -93,7 +94,7 @@ function applyState(newState) {
 
 // Theme toggle, hall theme, chat toggle, modals (unchanged from original)
 const HALL_THEME_KEY = 'monopolyHallTheme';
-const HALL_THEMES = ['america50', 'classic', 'artdeco', 'scandinavian', 'wood', 'neon'];
+const HALL_THEMES = ['america50', 'classic', 'artdeco', 'scandinavian', 'wood', 'neon', 'luxury'];
 
 function getHallTheme() {
   const saved = localStorage.getItem(HALL_THEME_KEY);

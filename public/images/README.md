@@ -9,7 +9,8 @@
 
 ## Темы фона (themes/)
 
-- `america50`, `classic`, `artdeco`, `scandinavian`, `wood`, `neon` — фоны зала (файлы `.jpg` или `.svg`).
+- `america50`, `classic`, `artdeco`, `scandinavian`, `wood`, `neon`, **`luxury`** — фоны зала (файлы `.jpg` или `.svg`).
+- **Luxury** — премиум Art Deco: фон `luxury.jpg`, стол `table/surface-luxury.jpg`, палитра золото/махагон.
 - В CSS уже задан приоритет `.jpg`, fallback на `.svg`.
 
 ## Карточки клеток (cards/)
@@ -20,6 +21,7 @@
 ## Стол (table/)
 
 - `surface.jpg` или `surface.svg` — текстура стола под доской.
+- `surface-luxury.jpg` — премиум-текстура для темы **Luxury** (зелёное сукно / махагон).
 
 ## Декор (decoration/)
 

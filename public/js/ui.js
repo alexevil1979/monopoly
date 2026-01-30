@@ -471,4 +471,3 @@ export function showCardModal(card) {
     flip.classList.add('flipped');
   }, 500);
 }
-<｜tool▁calls▁begin｜><｜tool▁call▁begin｜>

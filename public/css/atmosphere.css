@@ -101,6 +101,13 @@ body[data-hall-theme=""]::before {
   box-shadow: inset 0 0 80px rgba(0,0,0,0.3);
 }
 
+/* Тема Luxury: премиум-текстура стола (зелёное сукно / махагон) */
+[data-hall-theme="luxury"] .board-container::before {
+  background: url('/images/table/surface-luxury.jpg') center/cover no-repeat;
+  filter: brightness(0.9);
+  box-shadow: inset 0 0 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(212,175,55,0.15);
+}
+
 .board-circle {
   background: radial-gradient(circle at 50% 50%, var(--bg-tertiary) 0%, var(--bg-secondary) 45%, var(--bg-primary) 100%) !important;
   border: 4px solid var(--border-color);
