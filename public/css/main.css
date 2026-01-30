@@ -432,17 +432,18 @@ h1, h2, h3 {
 }
 
 .cell-name {
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 600;
   text-align: center;
-  line-height: 1.1;
+  line-height: 1.15;
   margin-bottom: 2px;
   word-break: break-word;
+  color: var(--text-primary);
 }
 
 .cell-price {
-  font-size: 8px;
-  color: var(--text-secondary);
+  font-size: 10px;
+  color: var(--accent-gold, var(--text-secondary));
   font-weight: 500;
 }
 
@@ -885,17 +886,21 @@ h1, h2, h3 {
 
 .card-modal-image-wrap {
   width: 100%;
+  min-height: 200px;
   margin-bottom: 20px;
   border-radius: 12px;
   overflow: hidden;
   border: var(--card-vintage-border, 2px solid var(--border-color));
   box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  background: var(--bg-tertiary);
+  position: relative;
 }
 
 .card-modal-image {
   display: block;
   width: 100%;
   height: auto;
+  min-height: 180px;
   max-height: 280px;
   object-fit: cover;
   object-position: center;
@@ -1071,6 +1076,11 @@ h1, h2, h3 {
   margin-right: 6px;
 }
 
+.chat-message.mine {
+  background: rgba(59, 130, 246, 0.15);
+  border-left: 3px solid var(--accent-primary, #3b82f6);
+}
+
 .chat-input-container {
   padding: 12px;
   border-top: 1px solid var(--border-color);
@@ -1089,6 +1099,54 @@ h1, h2, h3 {
 .chat-input:focus {
   outline: none;
   border-color: var(--accent-primary);
+}
+
+/* Toast notifications */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.toast {
+  padding: 12px 20px;
+  border-radius: 12px;
+  background: var(--bg-glass);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-lg);
+  font-size: 0.95rem;
+  max-width: 320px;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: opacity var(--transition-normal), transform var(--transition-normal);
+  pointer-events: auto;
+}
+
+.toast.toast-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.toast.toast-success {
+  border-left: 4px solid #22c55e;
+}
+
+.toast.toast-warning {
+  border-left: 4px solid #eab308;
+}
+
+.toast.toast-error {
+  border-left: 4px solid #ef4444;
+}
+
+.toast.toast-info {
+  border-left: 4px solid var(--accent-primary, #3b82f6);
 }
 
 .event-log {

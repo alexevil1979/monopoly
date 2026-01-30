@@ -30,11 +30,18 @@ export function getPlayerToken(index) {
   };
 }
 
+const moneyFormatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 0,
+});
+
 /**
- * Format money with $ sign
+ * Format money with $ sign (Intl.NumberFormat)
  */
 export function formatMoney(amount) {
-  return `$${amount.toLocaleString()}`;
+  return moneyFormatter.format(Number(amount));
 }
 
 /**
@@ -221,6 +228,35 @@ export function hideModal(modalId) {
   const modal = document.getElementById(modalId);
   if (modal) {
     modal.classList.remove('active');
+  }
+}
+
+/**
+ * Show toast notification
+ * @param {string} message - Text to show
+ * @param {'info'|'success'|'warning'|'error'} type - Toast type
+ * @param {number} duration - Ms before auto-remove (0 = no auto-remove)
+ */
+export function showToast(message, type = 'info', duration = 4000) {
+  const container = document.getElementById('toast-container');
+  if (!container) return;
+
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  toast.setAttribute('role', 'alert');
+  toast.textContent = message;
+  container.appendChild(toast);
+
+  requestAnimationFrame(() => {
+    toast.classList.add('toast-visible');
+  });
+
+  if (duration > 0) {
+    const t = setTimeout(() => {
+      toast.classList.remove('toast-visible');
+      setTimeout(() => toast.remove(), 300);
+    }, duration);
+    toast.dataset.timeoutId = t;
   }
 }
 

@@ -115,7 +115,7 @@
 
     <!-- Game HUD -->
     <div class="game-hud">
-      <div class="hud-status" id="gameStatus">Waiting for game to start...</div>
+      <div class="hud-status" id="gameStatus" aria-live="polite" aria-atomic="true">Waiting for game to start...</div>
       
       <div class="dice-container" id="diceContainer" style="display: none;">
         <div class="dice" id="dice1">🎲</div>
@@ -208,8 +208,11 @@
     </div>
   </div>
 
+  <!-- Toast notifications -->
+  <div id="toast-container" class="toast-container" role="region" aria-label="Notifications"></div>
+
   <!-- Event Log -->
-  <div class="event-log" id="eventLog">
+  <div class="event-log" id="eventLog" role="log" aria-live="polite" aria-label="Recent events">
     <div style="font-weight: 600; margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid var(--border-color);">Recent Events</div>
     <div id="eventLogItems"></div>
   </div>
