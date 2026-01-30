@@ -84,6 +84,10 @@ h1, h2, h3 {
   padding: 20px;
 }
 
+#gameScreen.screen.active {
+  min-height: 0;
+}
+
 .screen.active {
   display: block !important;
   animation: fadeIn 0.5s ease;
@@ -281,15 +285,18 @@ h1, h2, h3 {
 #gameScreen {
   max-width: 1600px;
   margin: 0 auto;
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
   display: grid;
   grid-template-columns: 1fr 320px;
-  grid-template-rows: auto 1fr auto;
-  gap: 20px;
+  grid-template-rows: minmax(0, 1fr) minmax(0, 1fr) auto;
+  gap: 16px;
   grid-template-areas:
     "board players"
     "board players"
     "hud hud";
-  padding: 20px;
+  padding: 12px;
 }
 
 @media (max-width: 1024px) {
@@ -312,15 +319,16 @@ h1, h2, h3 {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 600px;
-  padding: 40px;
+  min-height: 0;
+  padding: 16px;
   overflow: hidden;
 }
 
 .board-wrapper {
   position: relative;
   width: 100%;
-  max-width: 800px;
+  max-width: min(800px, 100%);
+  max-height: 100%;
   aspect-ratio: 1;
   overflow: hidden;
   border-radius: 50%;
@@ -582,8 +590,8 @@ h1, h2, h3 {
   grid-area: players;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  max-height: calc(100vh - 200px);
+  gap: 12px;
+  min-height: 0;
   overflow-y: auto;
   padding-right: 8px;
 }
@@ -741,15 +749,16 @@ h1, h2, h3 {
 
 .game-hud {
   grid-area: hud;
+  flex-shrink: 0;
   background: var(--bg-glass);
   backdrop-filter: blur(20px);
-  border-radius: 20px;
-  padding: 24px;
+  border-radius: 16px;
+  padding: 16px 20px;
   border: 2px solid var(--border-color);
   box-shadow: var(--shadow-lg);
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
 }
 
 .hud-status {
@@ -1231,7 +1240,12 @@ h1, h2, h3 {
   font-size: 0.8rem;
 }
 
-/* Скрыть лог событий и лишние элементы во время игры */
+/* Во время игры — без прокрутки страницы, всё влезает в экран */
+body.in-game {
+  overflow: hidden;
+  height: 100vh;
+}
+
 body.in-game .event-log {
   display: none;
 }
@@ -1384,8 +1398,8 @@ body.in-game .theme-toggle {
   }
 
   .board-container {
-    min-height: 400px;
-    padding: 20px;
+    min-height: 0;
+    padding: 12px;
   }
 
   .players-panel {
