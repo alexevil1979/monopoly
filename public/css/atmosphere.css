@@ -85,10 +85,10 @@ body[data-hall-theme=""]::before {
   z-index: 1;
 }
 
-/* ---------- Игровой стол: зелёный круг — на wrapper, карточки по кругу ---------- */
+/* ---------- Игровой стол: без фона под полем — виден фон комнаты ---------- */
 .board-container {
   position: relative;
-  background-color: var(--bg-secondary);
+  background-color: transparent;
 }
 
 .board-wrapper {
