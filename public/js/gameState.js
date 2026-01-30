@@ -32,7 +32,7 @@ export const BOARD_RADIUS = 299;
 /** Коэффициент растяжения по X: совпадает с scaleX(.board-cells), контур овала */
 export const BOARD_STRETCH_X = 1.53;
 /** Смещение кольца левее и выше (px), совпадает с --board-offset-x/y в CSS */
-export const BOARD_OFFSET_X = 24;
+export const BOARD_OFFSET_X = 38;
 export const BOARD_OFFSET_Y = 18;
 
 let state = null;
