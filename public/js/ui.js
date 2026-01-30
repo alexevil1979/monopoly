@@ -13,6 +13,7 @@ import {
   BOARD_CELLS,
   TOTAL_CELLS,
   BOARD_RADIUS,
+  BOARD_STRETCH_X,
   getCardImageUrl,
 } from './gameState.js';
 import {
@@ -132,7 +133,7 @@ export function renderPlayerTokens() {
     tokenEl.textContent = token.icon;
     tokenEl.style.backgroundColor = token.color;
     tokenEl.style.borderColor = token.color;
-    tokenEl.style.left = `calc(50% + ${pos.x}px)`;
+    tokenEl.style.left = `calc(50% + ${pos.x * BOARD_STRETCH_X}px)`;
     tokenEl.style.top = `calc(50% + ${pos.y}px)`;
     tokenEl.title = player.name;
 
@@ -140,7 +141,7 @@ export function renderPlayerTokens() {
 
     const prevPos = getPreviousPosition(player.id);
     if (prevPos !== undefined && prevPos !== player.position) {
-      animateTokenMovement(tokenEl, prevPos, player.position, TOTAL_CELLS, BOARD_RADIUS);
+      animateTokenMovement(tokenEl, prevPos, player.position, TOTAL_CELLS, BOARD_RADIUS, 800, BOARD_STRETCH_X);
     }
     setPreviousPosition(player.id, player.position);
   });

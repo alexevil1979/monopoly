@@ -27,8 +27,10 @@ export const BOARD_CELLS = [
 ];
 
 export const TOTAL_CELLS = BOARD_CELLS.length;
-/* Радиус кольца карточек (px) — совпадает с CSS --ring: 336% при размере клетки 10% и доске ~800px */
-export const BOARD_RADIUS = 269;
+/* Радиус кольца (px): 33.6% высоты овала; при высоте 720px ≈ 242px */
+export const BOARD_RADIUS = 242;
+/** Коэффициент растяжения по X (овал): совпадает с scaleX(.board-cells) */
+export const BOARD_STRETCH_X = 1.4;
 
 let state = null;
 let myId = null;
