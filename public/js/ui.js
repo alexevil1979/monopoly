@@ -376,10 +376,13 @@ export function updateGameUI(handlers = {}) {
     gameActions.appendChild(waitBtn);
   }
 
-  if (state.landedCell && state.pendingAction === 'buy') {
+  const currentPlayer = state.players?.[state.currentPlayerIndex];
+  const isMyTurn = currentPlayer && currentPlayer.id === getMyId();
+  if (state.landedCell && state.pendingAction === 'buy' && isMyTurn) {
     showPropertyModal(state.landedCell, state.pendingBuyCell);
   }
-  if (state.drawnCard) {
+  /* Карточка Chance/Community Chest — только у того, кто бросил */
+  if (state.drawnCard && isMyTurn) {
     showCardModal(state.drawnCard);
   }
 }
