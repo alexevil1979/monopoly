@@ -3,7 +3,7 @@
  * Использует gameState (BOARD_CELLS, getCardImageUrl) и utils (formatMoney).
  */
 
-import { BOARD_CELLS, getCardImageUrl } from './gameState.js';
+import { BOARD_CELLS, getCardImageUrl, isCornerCell } from './gameState.js';
 import { formatMoney } from './utils.js';
 import { getCellDisplay, setLang, getLang, applyPage } from './i18n.js';
 
@@ -26,7 +26,7 @@ function renderBoard() {
     if (cell.color) cellDiv.dataset.color = cell.color;
 
     const card = document.createElement('div');
-    card.className = 'cell-card cell-card-has-img';
+    card.className = 'cell-card cell-card-has-img' + (isCornerCell(cell) ? ' cell-card--corner' : '');
     card.dataset.type = cell.type;
     if (cell.color) card.dataset.color = cell.color;
 

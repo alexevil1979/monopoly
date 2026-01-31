@@ -12,6 +12,7 @@ import {
   getPreviousMoney,
   BOARD_CELLS,
   getCardImageUrl,
+  isCornerCell,
 } from './gameState.js';
 import { getCellDisplay, getCardText, t, tParams } from './i18n.js';
 import {
@@ -82,6 +83,7 @@ export function renderBoard(properties = {}) {
       if (ownerIdx >= 0) card.dataset.ownerIndex = String(ownerIdx);
     }
     if (landedCellIndex === cell.index) card.classList.add('landed');
+    if (isCornerCell(cell)) card.classList.add('cell-card--corner');
     card.classList.add('cell-card-has-img');
 
     const cardBg = document.createElement('div');

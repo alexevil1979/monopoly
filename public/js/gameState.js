@@ -27,6 +27,14 @@ export const BOARD_CELLS = [
 ];
 
 export const TOTAL_CELLS = BOARD_CELLS.length;
+
+/** Типы угловых клеток (крупные квадратные карточки по эталону) */
+export const CORNER_TYPES = ['jail', 'community_chest', 'free_parking', 'go_to_jail'];
+
+export function isCornerCell(cell) {
+  return cell && CORNER_TYPES.includes(cell.type);
+}
+
 /* Радиус кольца (px): карточки с запасом внутри овала; при высоте 720px ≈ 299px */
 export const BOARD_RADIUS = 299;
 /** Коэффициент растяжения по X: совпадает с scaleX(.board-cells), контур овала */

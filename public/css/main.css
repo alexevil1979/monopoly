@@ -342,7 +342,7 @@ h1, h2, h3 {
   align-items: center;
   justify-content: center;
   min-height: 0;
-  padding: 16px;
+  padding: 8px;
   overflow: hidden;
   container-type: size;
   container-name: board;
@@ -380,6 +380,7 @@ h1, h2, h3 {
   grid-template-rows: repeat(7, 1fr);
   background: transparent;
   gap: 0;
+  padding: 0;
 }
 
 .board-center {
@@ -425,20 +426,35 @@ h1, h2, h3 {
   .board-logo { -webkit-text-fill-color: var(--accent-gold); }
 }
 
-/* Сетка 7×7: 20 клеток по периметру, центр — логотип */
+/* ========== Сетка доски с нуля по эталону: 7×7, углы крупные квадраты, боковые карты портрет 3:4, зазор 2px ========== */
+.board-wrapper {
+  --card-size: clamp(32px, 7vw, 72px);
+  --card-height: calc(var(--card-size) * 4 / 3);
+  --corner-size: calc(var(--card-height) * 1.35);
+}
+
 .board-cells {
   grid-column: 1 / -1;
   grid-row: 1 / -1;
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: repeat(7, 1fr);
-  gap: 0;
+  grid-template-columns:
+    var(--corner-size)
+    var(--card-size) var(--card-size) var(--card-size)
+    var(--card-size) var(--card-size)
+    var(--corner-size);
+  grid-template-rows:
+    var(--corner-size)
+    var(--card-height) var(--card-height)
+    minmax(var(--card-height), 1fr)
+    var(--card-height) var(--card-height)
+    var(--corner-size);
+  gap: 2px;
+  justify-content: center;
+  align-content: center;
   z-index: 0;
 }
 
 .board-cell {
-  min-width: 0;
-  min-height: 0;
   transition: transform var(--transition-normal), filter var(--transition-normal);
   cursor: pointer;
   display: flex;
@@ -448,39 +464,43 @@ h1, h2, h3 {
   overflow: visible;
 }
 
-/* Клетка с фишкой — выше соседних */
 .board-cell:has(.player-token) {
   z-index: 25;
 }
 
-/* Нижний ряд: 1–5 — карточка «вверх», 5 ячеек по центру */
+/* Нижний ряд: ячейки 1–6 (индексы 0–5) */
 .board-cell:nth-child(1) { grid-column: 2; grid-row: 7; transform: rotate(0deg); }
 .board-cell:nth-child(2) { grid-column: 3; grid-row: 7; transform: rotate(0deg); }
 .board-cell:nth-child(3) { grid-column: 4; grid-row: 7; transform: rotate(0deg); }
 .board-cell:nth-child(4) { grid-column: 5; grid-row: 7; transform: rotate(0deg); }
 .board-cell:nth-child(5) { grid-column: 6; grid-row: 7; transform: rotate(0deg); }
-/* Правый столбец: 6–10 — карточки горизонтальные (как низ/верх) */
-.board-cell:nth-child(6) { grid-column: 7; grid-row: 6; transform: rotate(0deg); }
+.board-cell:nth-child(6) { grid-column: 7; grid-row: 7; transform: rotate(0deg); }
+/* Правый столбец: 7–10 (сверху вниз: 10,9,8,7) */
 .board-cell:nth-child(7) { grid-column: 7; grid-row: 5; transform: rotate(0deg); }
 .board-cell:nth-child(8) { grid-column: 7; grid-row: 4; transform: rotate(0deg); }
 .board-cell:nth-child(9) { grid-column: 7; grid-row: 3; transform: rotate(0deg); }
 .board-cell:nth-child(10) { grid-column: 7; grid-row: 2; transform: rotate(0deg); }
-/* Верхний ряд: 10,11,12,13,14 — карточка «вниз» */
-.board-cell:nth-child(11) { grid-column: 6; grid-row: 1; transform: rotate(180deg); }
-.board-cell:nth-child(12) { grid-column: 5; grid-row: 1; transform: rotate(180deg); }
-.board-cell:nth-child(13) { grid-column: 4; grid-row: 1; transform: rotate(180deg); }
-.board-cell:nth-child(14) { grid-column: 3; grid-row: 1; transform: rotate(180deg); }
-.board-cell:nth-child(15) { grid-column: 2; grid-row: 1; transform: rotate(180deg); }
-/* Левый столбец: 16–20 — карточки горизонтальные */
-.board-cell:nth-child(16) { grid-column: 1; grid-row: 2; transform: rotate(0deg); }
-.board-cell:nth-child(17) { grid-column: 1; grid-row: 3; transform: rotate(0deg); }
-.board-cell:nth-child(18) { grid-column: 1; grid-row: 4; transform: rotate(0deg); }
-.board-cell:nth-child(19) { grid-column: 1; grid-row: 5; transform: rotate(0deg); }
-.board-cell:nth-child(20) { grid-column: 1; grid-row: 6; transform: rotate(0deg); }
+/* Верхний ряд: 11–16 */
+.board-cell:nth-child(11) { grid-column: 7; grid-row: 1; transform: rotate(180deg); }
+.board-cell:nth-child(12) { grid-column: 6; grid-row: 1; transform: rotate(180deg); }
+.board-cell:nth-child(13) { grid-column: 5; grid-row: 1; transform: rotate(180deg); }
+.board-cell:nth-child(14) { grid-column: 4; grid-row: 1; transform: rotate(180deg); }
+.board-cell:nth-child(15) { grid-column: 3; grid-row: 1; transform: rotate(180deg); }
+.board-cell:nth-child(16) { grid-column: 2; grid-row: 1; transform: rotate(180deg); }
+/* Левый столбец: 17–20 */
+.board-cell:nth-child(17) { grid-column: 1; grid-row: 2; transform: rotate(0deg); }
+.board-cell:nth-child(18) { grid-column: 1; grid-row: 3; transform: rotate(0deg); }
+.board-cell:nth-child(19) { grid-column: 1; grid-row: 4; transform: rotate(0deg); }
+.board-cell:nth-child(20) { grid-column: 1; grid-row: 5; transform: rotate(0deg); }
 
+/* Обычная карточка: портрет 3:4, один размер */
 .cell-card {
-  width: 100%;
-  height: 100%;
+  width: var(--card-size);
+  height: auto;
+  aspect-ratio: 3 / 4;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0;
   background-color: var(--bg-card);
   background-size: cover;
   background-position: center;
@@ -499,6 +519,20 @@ h1, h2, h3 {
   backface-visibility: hidden;
 }
 
+/* Угловая карточка: квадрат, заполняет ячейку (как на эталоне) */
+.cell-card--corner {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  aspect-ratio: 1;
+  max-width: none;
+  max-height: none;
+}
+.cell-card--corner .cell-name {
+  font-size: clamp(8px, 1.8vw, 14px);
+}
+
 /* Слой фона карточки — для верхнего ряда контр-поворачиваем, чтобы картинка не вверх ногами */
 .cell-card-bg {
   position: absolute;
@@ -511,7 +545,8 @@ h1, h2, h3 {
   pointer-events: none;
 }
 
-.board-cell:nth-child(n+11):nth-child(-n+15) .cell-card-bg {
+/* Верхний ряд (11–16): картинка карточки контр-поворот 180° */
+.board-cell:nth-child(n+11):nth-child(-n+16) .cell-card-bg {
   transform: rotate(180deg);
   transform-origin: center center;
 }
@@ -552,8 +587,8 @@ h1, h2, h3 {
 
 /* Контр-поворот текста только для верхнего ряда (карточки вниз головой) */
 .board-cell:nth-child(n+1):nth-child(-n+10) .cell-card-content { transform: rotate(0deg); }
-.board-cell:nth-child(n+11):nth-child(-n+15) .cell-card-content { transform: rotate(180deg); }
-.board-cell:nth-child(n+16):nth-child(-n+20) .cell-card-content { transform: rotate(0deg); }
+.board-cell:nth-child(n+11):nth-child(-n+16) .cell-card-content { transform: rotate(180deg); }
+.board-cell:nth-child(n+17):nth-child(-n+20) .cell-card-content { transform: rotate(0deg); }
 
 .cell-card:hover {
   transform: scale(1.06);
@@ -633,8 +668,8 @@ h1, h2, h3 {
 }
 
 .board-cell:nth-child(n+1):nth-child(-n+10) .cell-token-spot { transform: rotate(0deg); }
-/* Верхний ряд: карточка 180°, точка в низ-лево; контр-поворот 180° чтобы фишка не вверх ногами */
-.board-cell:nth-child(n+11):nth-child(-n+15) .cell-token-spot {
+/* Верхний ряд (11–16): карточка 180°, точка в низ-лево; контр-поворот 180° чтобы фишка не вверх ногами */
+.board-cell:nth-child(n+11):nth-child(-n+16) .cell-token-spot {
   top: auto;
   right: auto;
   bottom: 0;
@@ -644,7 +679,7 @@ h1, h2, h3 {
   align-items: flex-end;
   justify-content: flex-start;
 }
-.board-cell:nth-child(n+16):nth-child(-n+20) .cell-token-spot { transform: rotate(0deg); }
+.board-cell:nth-child(n+17):nth-child(-n+20) .cell-token-spot { transform: rotate(0deg); }
 
 .cell-token-spot .player-token {
   position: relative;

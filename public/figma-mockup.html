@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Макет игры — Figma 1440×900</title>
+  <link rel="stylesheet" href="/css/main.css?v=board-refresh" />
+  <link rel="stylesheet" href="/css/themes.css" />
+  <link rel="stylesheet" href="/css/atmosphere.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <style>
+    /* Фиксированный размер макета для экспорта в Figma */
+    body {
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #1a1a1a;
+    }
+    .figma-frame {
+      width: 1440px;
+      height: 900px;
+      overflow: hidden;
+      position: relative;
+      background: var(--bg-page, #0f1419);
+      box-shadow: 0 0 0 2px rgba(212,175,55,0.3), 0 24px 48px rgba(0,0,0,0.5);
+      border-radius: 8px;
+    }
+    .figma-frame #gameScreen {
+      height: 100%;
+      max-height: 900px;
+      padding: 12px;
+    }
+    /* Чат внутри макета (не fixed) */
+    .figma-frame .chat-container {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+      left: auto;
+    }
+    .figma-caption {
+      margin-top: 12px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      font-family: system-ui, sans-serif;
+    }
+  </style>
+</head>
+<body data-hall-theme="america50">
+  <div class="figma-frame" id="figmaFrame">
+    <div id="gameScreen" class="screen active">
+      <div class="board-container">
+        <div class="board-wrapper">
+          <div class="board-circle" id="boardCircle">
+            <div id="board" class="board-cells"></div>
+            <div class="board-center">
+              <div class="board-logo" aria-label="MAXIPOLY">MAXIPOLY</div>
+            </div>
+            <div id="tokensLayer" class="tokens-layer" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+      <div class="players-panel" id="playersPanel"></div>
+      <div class="game-hud">
+        <div class="hud-status your-turn" id="gameStatus">Your turn! Roll the dice.</div>
+        <div class="dice-container" id="diceContainer">
+          <div class="dice" id="dice1">🎲</div>
+          <div class="dice" id="dice2">🎲</div>
+        </div>
+        <div class="game-actions" id="gameActions"></div>
+      </div>
+    </div>
+    <div class="chat-container" id="chatContainer">
+      <div class="chat-header" id="chatHeader">
+        <h4>Chat</h4>
+        <button class="chat-toggle" id="chatToggle" type="button">−</button>
+      </div>
+      <div class="chat-log" id="chatLog"></div>
+      <div class="chat-input-container">
+        <input type="text" class="chat-input" id="chatInput" placeholder="Type a message..." maxlength="200" />
+      </div>
+    </div>
+  </div>
+  <p class="figma-caption">Макет для Figma • 1440×900 • Откройте в браузере и сделайте скриншот или используйте плагин «Screenshot» / «HTML to Figma»</p>
+  <script type="module" src="/js/figma-mockup.js"></script>
+</body>
+</html>
