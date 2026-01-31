@@ -426,28 +426,18 @@ h1, h2, h3 {
   .board-logo { -webkit-text-fill-color: var(--accent-gold); }
 }
 
-/* ========== Сетка доски с нуля по эталону: 7×7, углы крупные квадраты, боковые карты портрет 3:4, зазор 2px ========== */
+/* ========== Единая сетка 7×7: все ячейки одного размера под карточку 3:4, зазор 2px ========== */
 .board-wrapper {
   --card-size: clamp(32px, 7vw, 72px);
   --card-height: calc(var(--card-size) * 4 / 3);
-  --corner-size: calc(var(--card-height) * 1.35);
 }
 
 .board-cells {
   grid-column: 1 / -1;
   grid-row: 1 / -1;
   display: grid;
-  grid-template-columns:
-    var(--corner-size)
-    var(--card-size) var(--card-size) var(--card-size)
-    var(--card-size) var(--card-size)
-    var(--corner-size);
-  grid-template-rows:
-    var(--corner-size)
-    var(--card-height) var(--card-height)
-    minmax(var(--card-height), 1fr)
-    var(--card-height) var(--card-height)
-    var(--corner-size);
+  grid-template-columns: repeat(7, var(--card-size));
+  grid-template-rows: repeat(7, var(--card-height));
   gap: 2px;
   justify-content: center;
   align-content: center;
@@ -493,14 +483,17 @@ h1, h2, h3 {
 .board-cell:nth-child(19) { grid-column: 1; grid-row: 4; transform: rotate(0deg); }
 .board-cell:nth-child(20) { grid-column: 1; grid-row: 5; transform: rotate(0deg); }
 
-/* Обычная карточка: портрет 3:4, один размер */
+/* Обычная карточка: строго один размер 3:4, не растягивается в ячейке */
 .cell-card {
   width: var(--card-size);
-  height: auto;
+  min-width: var(--card-size);
+  max-width: var(--card-size);
+  height: var(--card-height);
+  min-height: var(--card-height);
+  max-height: var(--card-height);
   aspect-ratio: 3 / 4;
-  max-width: 100%;
-  max-height: 100%;
   margin: 0;
+  flex-shrink: 0;
   background-color: var(--bg-card);
   background-size: cover;
   background-position: center;
